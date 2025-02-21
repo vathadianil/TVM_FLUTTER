@@ -1,0 +1,120 @@
+name: tsavaari
+description: "A new Flutter project."
+
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.3 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  #Utility Package
+  connectivity_plus: ^6.0.3
+  intl: ^0.18.0
+  logger: ^2.2.0
+  lottie: ^3.1.0
+  shimmer: ^3.0.0
+  flutter_native_splash: ^2.4.0
+  image_picker: ^1.1.2
+  permission_handler: ^11.3.1
+  carousel_slider: ^5.0.0
+  device_preview: ^1.1.0
+  flutter_animate: ^4.5.0
+  screen_brightness: ^2.0.0+2
+  flutter_svg: ^2.0.10+1
+  speech_to_text: ^6.6.0
+  share_plus: ^10.0.0
+  path_provider: ^2.1.4
+  flutter_dotenv: ^5.2.1
+  usb_serial:
+    git:
+      url: https://github.com/jymden/usbserial.git
+      ref: master
+
+  #OTP Package
+  pinput: ^5.0.0
+  #sms_autofill: ^2.4.1
+
+  #Qr Code
+  qr_flutter: ^4.1.0
+
+  #Card Recharge
+  crypto: ^3.0.3
+
+  #Icon Packages
+  cupertino_icons: ^1.0.2
+  iconsax: ^0.0.8
+
+  #Payment Gateways
+  flutter_cashfree_pg_sdk: ^2.2.3+41
+  paytm_allinonesdk: ^1.1.7
+
+  #State Management Packages
+  get: ^4.6.6
+  get_storage: ^2.1.1
+
+  #Dropdown package
+  dropdown_search: ^5.0.0
+
+  #Http Package
+  http: ^1.2.2
+  cached_network_image: ^3.4.0
+  url_launcher: ^6.3.1
+  webview_flutter: ^4.7.0
+  google_mobile_ads: ^5.2.0
+
+  #Get Device location Package
+  geolocator: ^12.0.0
+
+  #firebase Packages
+  firebase_core: ^2.32.0
+  firebase_messaging: ^14.9.4
+  flutter_local_notifications: ^18.0.1
+  firebase_analytics: ^10.10.7
+
+  #Device Lock Package
+  local_auth: ^2.3.0
+
+  #Package checks if an app is installed and open it
+  installed_apps: ^1.5.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_launcher_icons: "^0.14.1"
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - .env
+    - assets/logos/
+    - assets/icons/
+    - assets/images/common/
+    - assets/images/banners/
+    - assets/images/animations/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-Italic.ttf
+          style: italic
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 800
