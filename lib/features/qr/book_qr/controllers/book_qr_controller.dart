@@ -5,7 +5,6 @@ import 'package:flutter_cashfree_pg_sdk/utils/cfenums.dart';
 import 'package:flutter_cashfree_pg_sdk/utils/cfexceptions.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tsavaari/analytics/analytics_engine.dart';
 import 'package:tsavaari/data/repositories/book_qr/book_qr_repository.dart';
 import 'package:tsavaari/data/repositories/loyalty_points/loyalty_points_repository.dart';
 import 'package:tsavaari/features/fare_calculator/models/fare_calculation_model.dart';
@@ -263,9 +262,6 @@ class BookQrController extends GetxController {
               //Navigate to Dispaly QR Page
               if (ticketData.returnCode == '0' &&
                   ticketData.returnMsg == 'SUCESS') {
-                AnalyticsEngine.qrPurchaseEvent(
-                    (passengerCount.value * qrFareData.first.finalFare!)
-                        .toDouble());
                 Get.offAll(() => DisplayQrScreen(
                       tickets: ticketData.tickets!,
                       stationList: stationController.stationList,

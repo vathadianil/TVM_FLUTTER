@@ -155,10 +155,10 @@ class LoginScreen extends StatelessWidget {
                   ),
 
                   //-- Display Google Ads Or Banners
-                  BannerImageSlider(
-                    autoPlay: true,
-                    pageType: BannerPageType.loginPage,
-                  ),
+                  // BannerImageSlider(
+                  //   autoPlay: true,
+                  //   pageType: BannerPageType.loginPage,
+                  // ),
                 ],
               ),
             ),

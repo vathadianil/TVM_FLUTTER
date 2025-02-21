@@ -15,7 +15,7 @@ import 'package:tsavaari/utils/theme/theme.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -29,14 +29,14 @@ class App extends StatelessWidget {
 
       //Show Loader or circular progress indicator meanwhile authentication service is
       //deciding to show releveant screen
-      
+
       home: Scaffold(
         body: Center(
             child: CachedNetworkImage(
           imageUrl: ApiEndPoint.splashImageUrl,
           fit: BoxFit.cover,
           placeholder: (context, url) => ShimmerEffect(
-            width: double.infinity,
+            width: TDeviceUtils.getScreenWidth(context) * .8,
             height: TDeviceUtils.getScreenHeight() / 2,
           ),
           errorWidget: (context, url, error) => const Icon(Icons.error),

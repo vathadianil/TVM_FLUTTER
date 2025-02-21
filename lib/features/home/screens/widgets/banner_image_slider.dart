@@ -9,7 +9,6 @@ import 'package:tsavaari/data/services/google_ads_helper.dart';
 import 'package:tsavaari/features/home/controllers/banner_controller.dart';
 import 'package:tsavaari/utils/constants/banner_page_type.dart';
 import 'package:tsavaari/utils/constants/colors.dart';
-import 'package:tsavaari/utils/constants/sizes.dart';
 import 'package:tsavaari/utils/device/device_utility.dart';
 
 import 'package:tsavaari/utils/loaders/shimmer_effect.dart';

@@ -70,15 +70,6 @@ dependencies:
   #Get Device location Package
   geolocator: ^12.0.0
 
-  #firebase Packages
-  firebase_core: ^2.32.0
-  firebase_messaging: ^14.9.4
-  flutter_local_notifications: ^18.0.1
-  firebase_analytics: ^10.10.7
-
-  #Device Lock Package
-  local_auth: ^2.3.0
-
   #Package checks if an app is installed and open it
   installed_apps: ^1.5.2
 

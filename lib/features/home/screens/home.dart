@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tsavaari/common/widgets/layout/max_width_container.dart';
 import 'package:tsavaari/common/widgets/layout/t_grid_layout.dart';
 import 'package:tsavaari/common/widgets/text/t_section_heading.dart';
 import 'package:tsavaari/features/home/controllers/social_media_controller.dart';
@@ -108,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen>
                   BannerImageSlider(
                     autoPlay: true,
                     pageType: BannerPageType.homePage,
-                    width: screenWidth * .4,
+                    width: screenWidth * .6,
                   ),
 
                   Padding(
