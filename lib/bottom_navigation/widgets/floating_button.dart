@@ -49,8 +49,8 @@ class FloatingButton extends StatelessWidget {
           },
           onTap: onTap,
           child: Container(
-            width: TDeviceUtils.getScreenWidth(context) * .2,
-            height: TDeviceUtils.getScreenWidth(context) * .2,
+            width: TDeviceUtils.getScreenWidth(context) * .08,
+            height: TDeviceUtils.getScreenWidth(context) * .08,
             decoration: BoxDecoration(
                 color: isDark ? TColors.dark : TColors.white,
                 borderRadius: BorderRadius.circular(100),

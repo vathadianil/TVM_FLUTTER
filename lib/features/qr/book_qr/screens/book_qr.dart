@@ -36,8 +36,9 @@ class BookQrScreen extends StatelessWidget {
     final busineessHoursController = Get.put(BusineessHoursController());
     final bookQrController = Get.put(BookQrController());
     Get.put(CheckBoxController());
-    final rewardPointsController = Get.put(RewardPointsController()); 
-    final ordersController = Get.put(OrdersController(tabIndex: 1));//--tabIndex= 1 to fetch Past Tickets.
+    final rewardPointsController = Get.put(RewardPointsController());
+    final ordersController = Get.put(
+        OrdersController(tabIndex: 1)); //--tabIndex= 1 to fetch Past Tickets.
     final adController = Get.put(GoogleAdController());
 
     final screenHeight = TDeviceUtils.getScreenHeight();
@@ -69,79 +70,88 @@ class BookQrScreen extends StatelessWidget {
                     : Column(
                         children: [
                           bookQrController.isRedeemed.value
-                          ?  TicketPreviewAfterReedem()  
-                          : Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: TSizes.defaultSpace),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(TSizes.md),
-                                border: Border.all(
-                                  width: 1,
-                                  color: TColors.grey,
+                              ? TicketPreviewAfterReedem()
+                              : Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: TSizes.defaultSpace),
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.circular(TSizes.md),
+                                    border: Border.all(
+                                      width: 1,
+                                      color: TColors.grey,
+                                    ),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      //-- Ticket type Selection
+                                      const TicketTypeSlection(),
+
+                                      SizedBox(
+                                        height: screenHeight * .015,
+                                      ),
+
+                                      //-- No. of Tickets selection
+                                      const TicketCountSelection(),
+
+                                      SizedBox(
+                                        height: screenHeight * .015,
+                                      ),
+
+                                      //-- Source and Destination station selection
+                                      const SourceDestinationSelection(),
+
+                                      const SizedBox(
+                                        height: TSizes.spaceBtwItems,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              child: Column(
-                                children: [
-                                  //-- Ticket type Selection
-                                  const TicketTypeSlection(),
 
-                                  SizedBox(
-                                    height: screenHeight * .015,
-                                  ),
-
-                                  //-- No. of Tickets selection
-                                  const TicketCountSelection(),
-
-                                  SizedBox(
-                                    height: screenHeight * .015,
-                                  ),
-
-                                  //-- Source and Destination station selection
-                                  const SourceDestinationSelection(),
-
-                                  const SizedBox(
-                                    height: TSizes.spaceBtwItems,
-                                  ),
-                                ],
-                              ),
+                          if (adController.isBannerAdReady.value &&
+                              adController.bannerAd != null)
+                            const SizedBox(
+                              height: TSizes.spaceBtwSections,
                             ),
-                          
-                          if(adController.isBannerAdReady.value && adController.bannerAd != null)
-                          const SizedBox(
-                            height: TSizes.spaceBtwSections,
-                          ),
 
                           //-- Display Google Ads Or Banners
                           BannerImageSlider(
-                            autoPlay: true,
-                            pageType: BannerPageType.qRTicketBooking
-                          ),
+                              autoPlay: true,
+                              pageType: BannerPageType.qRTicketBooking),
 
-                          //-- Display Reedem Points Container  
+                          //-- Display Reedem Points Container
                           if (!busineessHoursController
                                   .isTicketSelleingTimeExpired.value &&
-                              !busineessHoursController.isLoading.value && 
-                              bookQrController.source != bookQrController.destination &&
-                              rewardPointsController.loyaltyProgramKey.value == 1)
+                              !busineessHoursController.isLoading.value &&
+                              bookQrController.source !=
+                                  bookQrController.destination &&
+                              rewardPointsController.loyaltyProgramKey.value ==
+                                  1)
                             const DisplayRedeemPointsContainer(),
 
                           //-- Display Total Fare and Route
                           if (!busineessHoursController
                                   .isTicketSelleingTimeExpired.value &&
                               !busineessHoursController.isLoading.value &&
-                              bookQrController.source != bookQrController.destination)
+                              bookQrController.source !=
+                                  bookQrController.destination)
                             const DisplayFarePayBtnContainer(),
-                          
+
                           //-- Recent Rebook Ticket
                           bookQrController.isRedeemed.value
-                          ?  const SizedBox.shrink()  
-                          : RecentRebookTicketCard(
-                              stationList: stationListController.stationList,
-                              ticketData: ordersController.activeTickets.isNotEmpty && 
-                                          ordersController.activeTickets.first.ticketHistory != null
-                                  ? ordersController.activeTickets.first.ticketHistory![0]
-                                  : null,
-                            ),
+                              ? const SizedBox.shrink()
+                              : RecentRebookTicketCard(
+                                  stationList:
+                                      stationListController.stationList,
+                                  ticketData: ordersController
+                                              .activeTickets.isNotEmpty &&
+                                          ordersController.activeTickets.first
+                                                  .ticketHistory !=
+                                              null
+                                      ? ordersController
+                                          .activeTickets.first.ticketHistory![0]
+                                      : null,
+                                ),
                         ],
                       ),
               ),
@@ -150,6 +160,7 @@ class BookQrScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: const Image(
+        height: 100,
         image: AssetImage(
           TImages.trainImg1,
         ),

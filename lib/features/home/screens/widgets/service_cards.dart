@@ -11,9 +11,10 @@ import 'package:tsavaari/utils/device/device_utility.dart';
 import 'package:tsavaari/utils/helpers/helper_functions.dart';
 
 class ServiceCards extends StatelessWidget {
-  const ServiceCards({super.key, required this.service, required this.onMediaTap});
+  const ServiceCards(
+      {super.key, required this.service, required this.onMediaTap});
   final MetroServicesModel service;
-  final VoidCallback onMediaTap; 
+  final VoidCallback onMediaTap;
 
   void _handleNavigation(BuildContext context) {
     if (service.targetScreen == '/media') {
@@ -48,7 +49,7 @@ class ServiceCards extends StatelessWidget {
               radius: TSizes.borderRadiusMd,
               child: Icon(
                 TIcons.getIcon(service.icon),
-                size: screenWidth * .11,
+                size: screenWidth * .04,
                 color: dark ? TColors.accent : TColors.primary,
               ),
             ),
@@ -58,7 +59,7 @@ class ServiceCards extends StatelessWidget {
           ),
           Text(
             service.title,
-            textScaler: TextScaleUtil.getScaledText(context, maxScale: 3),
+            textScaler: TextScaleUtil.getScaledText(context, maxScale: 1.5),
             style: Theme.of(context)
                 .textTheme
                 .labelLarge!

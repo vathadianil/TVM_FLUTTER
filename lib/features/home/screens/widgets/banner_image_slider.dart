@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:tsavaari/common/widgets/containers/t_circular_container.dart';
@@ -15,23 +16,25 @@ import 'package:tsavaari/utils/loaders/shimmer_effect.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BannerImageSlider extends StatelessWidget {
-   BannerImageSlider({
+  BannerImageSlider({
     super.key,
     this.autoPlay = false,
-    required this.pageType, 
+    required this.pageType,
+    this.width = double.infinity,
     // this.defaultImage,
-    // this.showDefaultImage = true, 
+    // this.showDefaultImage = true,
   });
 
   final bool autoPlay;
   final String pageType;
+  final double width;
   // final String? defaultImage;
-  // final bool showDefaultImage; 
+  // final bool showDefaultImage;
   final controller = Get.put(BannerController());
 
   Future<void> _launchURL(String? url) async {
     if (url == null || url.isEmpty) return;
-    
+
     try {
       final Uri uri = Uri.parse(url);
       if (await canLaunchUrl(uri)) {
@@ -49,15 +52,19 @@ class BannerImageSlider extends StatelessWidget {
       case BannerPageType.homePage:
         return controller.adsSettings.value!.showGoogleAdsHomePage ?? false;
       case BannerPageType.qRTicketBooking:
-        return controller.adsSettings.value!.showGoogleAdsQRTicketBooking ?? false;
+        return controller.adsSettings.value!.showGoogleAdsQRTicketBooking ??
+            false;
       case BannerPageType.rechargeBanner:
-        return controller.adsSettings.value!.showGoogleAdsRechargeBanner ?? false;
+        return controller.adsSettings.value!.showGoogleAdsRechargeBanner ??
+            false;
       case BannerPageType.loginPage:
         return controller.adsSettings.value!.showGoogleAdsLoginPage ?? false;
       case BannerPageType.qrTicketsDetails:
-        return controller.adsSettings.value!.showGoogleAdsQRTicketDetails ?? false;
+        return controller.adsSettings.value!.showGoogleAdsQRTicketDetails ??
+            false;
       case BannerPageType.metroNetworkMap:
-        return controller.adsSettings.value!.showGoogleAdsMetroNetworkMap ?? false;
+        return controller.adsSettings.value!.showGoogleAdsMetroNetworkMap ??
+            false;
       default:
         return false;
     }
@@ -89,15 +96,18 @@ class BannerImageSlider extends StatelessWidget {
       case BannerPageType.homePage:
         return controller.adsSettings.value!.showBannersHomePage ?? false;
       case BannerPageType.qRTicketBooking:
-        return controller.adsSettings.value!.showBannersQRTicketBooking ?? false;
+        return controller.adsSettings.value!.showBannersQRTicketBooking ??
+            false;
       case BannerPageType.rechargeBanner:
         return controller.adsSettings.value!.showBannersRechargeBanner ?? false;
       case BannerPageType.loginPage:
         return controller.adsSettings.value!.showBannersLoginPage ?? false;
       case BannerPageType.qrTicketsDetails:
-        return controller.adsSettings.value!.showBannersQRTicketDetails ?? false;
+        return controller.adsSettings.value!.showBannersQRTicketDetails ??
+            false;
       case BannerPageType.metroNetworkMap:
-        return controller.adsSettings.value!.showBannersMetroNetworkMap ?? false;
+        return controller.adsSettings.value!.showBannersMetroNetworkMap ??
+            false;
       default:
         return false;
     }
@@ -107,14 +117,16 @@ class BannerImageSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(
-          height: TSizes.sm,
-        ),
+        // const SizedBox(
+        //   height: TSizes.sm,
+        // ),
         Obx(() {
           //Loader
           if (controller.isLoading.value) {
             return Padding(
-              padding: EdgeInsets.all(TDeviceUtils.getScreenWidth(context) * .04,),
+              padding: EdgeInsets.all(
+                TDeviceUtils.getScreenWidth(context) * .04,
+              ),
               child: const ShimmerEffect(width: double.infinity, height: 180),
             );
           }
@@ -131,78 +143,71 @@ class BannerImageSlider extends StatelessWidget {
           // final imageList = controller.bannersList
           //     .where((banner) => banner.bannerType == pageType)
           //     .expand((banner) => banner.bannerDetails!.map((detail) => detail.imageUrl ?? ''));
-          
+
           // Filter banners and create imageList reactively
           final pageBanners = controller.bannersList
               .where((banner) => banner.bannerType == pageType)
               .expand((banner) => banner.bannerDetails!)
               .toList()
-            ..sort((a, b) => (a.bannerSortId ?? 0).compareTo(b.bannerSortId ?? 0));
-            
+            ..sort(
+                (a, b) => (a.bannerSortId ?? 0).compareTo(b.bannerSortId ?? 0));
+
           if (_shouldShowBanners() && pageBanners.isNotEmpty) {
             return Column(
               children: [
-                CarouselSlider(
-                  options: CarouselOptions(
-                    autoPlay: autoPlay,
-                    viewportFraction: 1,
-                    padEnds: false,       
-                    onPageChanged: (index, reason) {
-                      controller.updatePageIndicator(index);
-                    },
+                SizedBox(
+                  height: width * .4,
+                  child: CarouselSlider(
+                    options: CarouselOptions(
+                      autoPlay: autoPlay,
+                      viewportFraction: 1,
+                      padEnds: false,
+                      onPageChanged: (index, reason) {
+                        controller.updatePageIndicator(index);
+                      },
+                    ),
+                    items: pageBanners.map((bannerDetail) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return RoundedCornerImage(
+                            isNetworkImage: true,
+                            imageUrl: bannerDetail.imageUrl ?? '',
+                            fit: BoxFit.cover,
+                            applyBoxShadow: false,
+                            width: width,
+                            onPressed: () =>
+                                _launchURL(bannerDetail.bannerRedirectLink),
+                          );
+                        },
+                      );
+                    }).toList(),
                   ),
-                  items: pageBanners.map((bannerDetail) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Padding(
-                              padding:  EdgeInsets.symmetric(
-                                horizontal: TDeviceUtils.getScreenWidth(context) * .04,
-                                vertical: TDeviceUtils.getScreenHeight() * .011,
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: RoundedCornerImage(
-                                  isNetworkImage: true,
-                                  imageUrl: bannerDetail.imageUrl ?? '',
-                                  fit: BoxFit.cover,
-                                  applyBoxShadow: false,
-                                  width: double.infinity,
-                                  onPressed: () => _launchURL(bannerDetail.bannerRedirectLink),
-                                )
-                              ),
-                            );
-                          },
-                        );
-                      }).toList(),
                 ),
 
-                const SizedBox(
-                  height: TSizes.spaceBtwItems,
-                ),
-                
                 //Page Indicator
-                if (controller.bannersList.isNotEmpty || pageBanners.isNotEmpty) 
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    for (int i = 0; i < pageBanners.length; i++)
-                      TCircularContainer(
-                        width: TDeviceUtils.getScreenWidth(context) * .04,
-                        height: TDeviceUtils.getScreenWidth(context) * .01,
-                        backgroundColor: controller.carouselCurrentIndex.value == i
-                            ? TColors.primary
-                            : TColors.grey,
-                        margin: const EdgeInsets.only(right: 10),
-                      ),
-                  ],
-                ),
+                if (controller.bannersList.isNotEmpty || pageBanners.isNotEmpty)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      for (int i = 0; i < pageBanners.length; i++)
+                        TCircularContainer(
+                          width: TDeviceUtils.getScreenWidth(context) * .04,
+                          height: TDeviceUtils.getScreenWidth(context) * .005,
+                          backgroundColor:
+                              controller.carouselCurrentIndex.value == i
+                                  ? TColors.primary
+                                  : TColors.grey,
+                          margin: const EdgeInsets.only(right: 10),
+                        ),
+                    ],
+                  ),
               ],
             );
           }
 
-          return const SizedBox.shrink(); 
+          return const SizedBox.shrink();
 
-          // return showDefaultImage 
+          // return showDefaultImage
           //     ? RoundedCornerImage(
           //         isNetworkImage: false,
           //         padding: EdgeInsets.symmetric(
@@ -212,9 +217,8 @@ class BannerImageSlider extends StatelessWidget {
           //         imageUrl: defaultImage ?? TImages.banner1,
           //         applyBoxShadow: false,
           //       )
-          //     : const SizedBox.shrink(); 
+          //     : const SizedBox.shrink();
         }),
-        
       ],
     );
   }

@@ -26,7 +26,7 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textScaler = TextScaleUtil.getScaledText(context);
+    final textScaler = TextScaleUtil.getScaledText(context, maxScale: 1);
     final screenWidth = TDeviceUtils.getScreenWidth(context);
     final profileController = Get.put(ProfileController());
     final notificationController = Get.put(NotificationController());
@@ -40,13 +40,14 @@ class HomeAppBar extends StatelessWidget {
     }
 
     return SizedBox(
-      height: screenWidth <= TSizes.smallSceenSize
-      ? screenWidth * .35
-      : screenWidth <= TSizes.mediumScreenSize
-          ? screenWidth * .3
-          : screenWidth <= TSizes.largeScreenSize
-              ? screenWidth * .2
-              : screenWidth * .18, // For larger screens
+      height: screenWidth * .085,
+      // height: screenWidth <= TSizes.smallSceenSize
+      // ? screenWidth * .35
+      // : screenWidth <= TSizes.mediumScreenSize
+      //     ? screenWidth * .3
+      //     : screenWidth <= TSizes.largeScreenSize
+      //         ? screenWidth * .2
+      //         : screenWidth * .18, // For larger screens
       child: TAppBar(
         showBackArrow: false,
         showLogo: false,
@@ -54,7 +55,7 @@ class HomeAppBar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image(
-              width: screenWidth * .10,
+              width: screenWidth * .03,
               image: const AssetImage(TImages.appLogo),
             ),
             SizedBox(
@@ -75,9 +76,6 @@ class HomeAppBar extends StatelessWidget {
                             ),
                       ),
                     )),
-                const SizedBox(
-                  height: TSizes.spaceBtwItems / 4,
-                ),
                 SizedBox(
                   width: screenWidth * .45,
                   child: Text(TTexts.homeAppbarTitle,
@@ -88,7 +86,7 @@ class HomeAppBar extends StatelessWidget {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       textScaler:
-                          TextScaleUtil.getScaledText(context, maxScale: 2.7)),
+                          TextScaleUtil.getScaledText(context, maxScale: 2)),
                 ),
               ],
             ),
@@ -114,12 +112,11 @@ class HomeAppBar extends StatelessWidget {
                 Icon(
                   Icons.share,
                   color: TColors.white,
-                  size: screenWidth * .04,
+                  size: screenWidth * .02,
                 ),
                 Text(
                   TTexts.share,
-                  textScaler:
-                      TextScaleUtil.getScaledText(context, maxScale: 2.2),
+                  textScaler: TextScaleUtil.getScaledText(context, maxScale: 1),
                   style: Theme.of(context)
                       .textTheme
                       .labelSmall!
@@ -129,7 +126,8 @@ class HomeAppBar extends StatelessWidget {
             ),
           ),
           Obx(() => NotificationIcon(
-                notificationCount: notificationController.firebaseNotificationCount.value,
+                notificationCount:
+                    notificationController.firebaseNotificationCount.value,
                 // notificationCount:
                 //     notificationController.notificationsList.length.toString(),
                 onPressed: () {

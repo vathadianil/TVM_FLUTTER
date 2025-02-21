@@ -20,7 +20,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   late SocialMediaController _socialMediaController;
 
   @override
@@ -91,119 +92,125 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     }
 
     return Scaffold(
-      body: Stack(
-        children: [ 
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                //Appbar
-                const HeaderSectionContainer(
-                  child: HomeAppBar(),
-                ),
-          
-                //Body
-                MaxWidthContaiiner(
-                  child: Column(
-                    children: [
-                      //-- Display Google Ads Or Banners
-                      BannerImageSlider(
-                        autoPlay: true,
-                        pageType: BannerPageType.homePage
-                      ),
-          
-                      Padding(
-                        padding: const EdgeInsets.all(TSizes.defaultSpace),
-                        child: Column(
-                          children: [
-            
-                            //Heading            
-                            const TSectionHeading(
-                              title: TTexts.metroServicesSectionHeading,
-                              showActionBtn: false,
-                              padding: EdgeInsets.only(left: 0),
-                            ),
-                      
-                            const SizedBox(
-                              height: TSizes.spaceBtwItems,
-                            ),
-                      
-                            // Services Grid
-                            GridLayout(
-                              itemCount: getActiveServiceList().length,
-                              mainAxisExtent: screenHeight * .15,
-                              crossAxisCount: 3,
-                              mainAxisSpacing: TSizes.gridViewSpacing,
-                              crossAxisSpacing: screenWidth * .08,
-                              itemBuilder: (BuildContext context, int index) {
-                                final activeServiceList = getActiveServiceList();
-                                return ServiceCards(
-                                  service: activeServiceList[index],
-                                  onMediaTap: _socialMediaController.handleMediaTap,
-                                );
-                              },
-                            ),
-                            const SizedBox(
-                              height: TSizes.spaceBtwSections * 2,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+      body: Stack(children: [
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              //Appbar
+              const HeaderSectionContainer(
+                child: HomeAppBar(),
+              ),
 
-          Positioned(
-            right: 0,
-            top: (screenHeight - (_socialMediaController.socialIcons.length * (screenWidth * 0.14 + TSizes.xs * 2))) / 2,
-            child: ValueListenableBuilder<bool>(
-              valueListenable: _socialMediaController.isExpandedNotifier,
-              builder: (context, isExpanded, child) {
-                return AnimatedContainer(
-                  duration: const Duration(milliseconds: 400),
-                  width: isExpanded ? screenWidth * 0.14 : 0,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: _socialMediaController.socialIcons.asMap().entries.map((entry) {
-                      final index = entry.key;
-                      final icon = entry.value;
-                      return AnimatedBuilder(
-                        animation: _socialMediaController.animationController,
-                        builder: (context, child) {
-                          return SlideTransition(
-                            position: _socialMediaController.getSlideAnimation(index),
-                            child: Container(
-                              width: screenWidth * 0.14,
-                              height: screenWidth * 0.12,
-                              decoration: BoxDecoration(
-                                color: icon['color'],
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(25),
-                                  bottomLeft: Radius.circular(25),
-                                ),
-                              ),
-                              margin: const EdgeInsets.symmetric(vertical: TSizes.xs),
-                              child: InkWell(
-                                onTap: () => _socialMediaController.launchSocialMedia(icon['url'], mode: 'app'),
-                                child: Image.asset(
-                                  icon['icon'],
-                                  width: screenWidth * 0.10,
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    }).toList().reversed.toList(),
+              //Body
+              Column(
+                children: [
+                  //-- Display Google Ads Or Banners
+                  BannerImageSlider(
+                    autoPlay: true,
+                    pageType: BannerPageType.homePage,
+                    width: screenWidth * .4,
                   ),
-                );
-              },
-            ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(TSizes.defaultSpace),
+                    child: Column(
+                      children: [
+                        //Heading
+                        const TSectionHeading(
+                          title: TTexts.metroServicesSectionHeading,
+                          showActionBtn: false,
+                          padding: EdgeInsets.only(left: 0),
+                        ),
+                        const SizedBox(
+                          height: TSizes.spaceBtwSections,
+                        ),
+                        // Services Grid
+                        GridLayout(
+                          itemCount: getActiveServiceList().length,
+                          mainAxisExtent: screenHeight * .2,
+                          crossAxisCount: 6,
+                          mainAxisSpacing: TSizes.gridViewSpacing,
+                          crossAxisSpacing: screenWidth * .06,
+                          itemBuilder: (BuildContext context, int index) {
+                            final activeServiceList = getActiveServiceList();
+                            return ServiceCards(
+                              service: activeServiceList[index],
+                              onMediaTap: _socialMediaController.handleMediaTap,
+                            );
+                          },
+                        ),
+                        const SizedBox(
+                          height: TSizes.spaceBtwSections * 2,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ]
-      ),
+        ),
+        Positioned(
+          right: 0,
+          top: (screenHeight -
+                  (_socialMediaController.socialIcons.length *
+                      (screenWidth * 0.14 + TSizes.xs * 2))) /
+              2,
+          child: ValueListenableBuilder<bool>(
+            valueListenable: _socialMediaController.isExpandedNotifier,
+            builder: (context, isExpanded, child) {
+              return AnimatedContainer(
+                duration: const Duration(milliseconds: 400),
+                width: isExpanded ? screenWidth * 0.14 : 0,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: _socialMediaController.socialIcons
+                      .asMap()
+                      .entries
+                      .map((entry) {
+                        final index = entry.key;
+                        final icon = entry.value;
+                        return AnimatedBuilder(
+                          animation: _socialMediaController.animationController,
+                          builder: (context, child) {
+                            return SlideTransition(
+                              position: _socialMediaController
+                                  .getSlideAnimation(index),
+                              child: Container(
+                                width: screenWidth * 0.14,
+                                height: screenWidth * 0.12,
+                                decoration: BoxDecoration(
+                                  color: icon['color'],
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(25),
+                                    bottomLeft: Radius.circular(25),
+                                  ),
+                                ),
+                                margin: const EdgeInsets.symmetric(
+                                    vertical: TSizes.xs),
+                                child: InkWell(
+                                  onTap: () => _socialMediaController
+                                      .launchSocialMedia(icon['url'],
+                                          mode: 'app'),
+                                  child: Image.asset(
+                                    icon['icon'],
+                                    width: screenWidth * 0.10,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      })
+                      .toList()
+                      .reversed
+                      .toList(),
+                ),
+              );
+            },
+          ),
+        ),
+      ]),
     );
   }
 }

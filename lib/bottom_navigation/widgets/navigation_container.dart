@@ -41,16 +41,14 @@ class NavigationContainer extends StatelessWidget {
     final screenWidth = TDeviceUtils.getScreenWidth(context);
     return Padding(
       padding: EdgeInsets.only(
-          left: screenWidth * .1,
-          right: screenWidth * .1,
-          bottom: screenWidth * .04),
+          left: screenWidth * .1, right: screenWidth * .1, bottom: 0),
       child: Material(
         color: Colors.transparent,
         elevation: TSizes.sm,
         borderRadius: BorderRadius.circular(screenWidth * 0.1),
         child: Container(
           width: screenWidth,
-          height: screenWidth * .15,
+          height: screenWidth * .06,
           decoration: BoxDecoration(
             color: TColors.primary,
             borderRadius: BorderRadius.circular(screenWidth * 0.1),

@@ -32,23 +32,26 @@ class NavigationBtn extends StatelessWidget {
           onPressed(index);
         },
         child: Container(
-          padding: EdgeInsets.all(screenWidth * .02),
+          padding: EdgeInsets.all(screenWidth * .005),
           decoration: (currentIndex == index)
               ? BoxDecoration(
                   borderRadius: BorderRadius.circular(screenWidth * .1),
                   border: Border.all(
                     color: const Color.fromRGBO(255, 255, 255, 1),
-                    width: screenWidth * .003,
+                    width: screenWidth * .001,
                   ),
                 )
               : null,
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Icon(
-                icon,
-                color: TColors.white,
-                size: screenWidth * .05,
+              Padding(
+                padding: EdgeInsets.only(left: screenWidth * .02),
+                child: Icon(
+                  icon,
+                  color: TColors.white,
+                  size: screenWidth * .02,
+                ),
               ),
               if (currentIndex == index)
                 const SizedBox(
@@ -63,13 +66,14 @@ class NavigationBtn extends StatelessWidget {
                         begin: Offset(-.4, 0))
                   ],
                   child: SizedBox(
-                    width: screenWidth * .15,
+                    width: screenWidth * .1,
                     child: Text(
                       text,
                       textAlign: TextAlign.center,
                       maxLines: 2,
-                      textScaler:
-                          TextScaleUtil.getScaledText(context, maxScale: 4),
+                      textScaler: TextScaleUtil.getScaledText(
+                        context,
+                      ),
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.labelSmall!.apply(
                             color: TColors.white,
