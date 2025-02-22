@@ -29,7 +29,6 @@ class BottomSheetMainPage extends StatelessWidget {
             const Spacer(),
             OutlinedButton(
               onPressed: () {
-                print('close pressed');
                 Navigator.pop(context);
               },
               style: OutlinedButton.styleFrom(

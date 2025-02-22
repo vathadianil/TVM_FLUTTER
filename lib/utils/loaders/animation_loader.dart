@@ -45,7 +45,7 @@ class TAnimationLoaderWidget extends StatelessWidget {
           else
             Lottie.asset(animation,
                 width: MediaQuery.of(context).size.width *
-                    0.8), // Display Lottie animation
+                    0.3), // Display Lottie animation
           const SizedBox(height: TSizes.defaultSpace),
           Text(
             text,

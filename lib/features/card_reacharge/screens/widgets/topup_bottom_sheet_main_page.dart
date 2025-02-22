@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:tsavaari/common/widgets/button/custom_elevated_btn.dart';
 import 'package:tsavaari/features/card_reacharge/controllers/amounts_scroll_controller.dart';
 import 'package:tsavaari/features/card_reacharge/controllers/metro_card_controller.dart';
@@ -43,22 +44,50 @@ class TopupMainPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Select Amount',
-                style: Theme.of(context).textTheme.headlineSmall,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Select Amount',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                  Text(
+                    'How much would like to top up?',
+                    style: Theme.of(context).textTheme.labelMedium,
+                  ),
+                ],
+              ),
+              const Spacer(),
+              OutlinedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: TColors.white,
+                  side: const BorderSide(
+                    color: TColors.error,
+                  ),
+                  elevation: TSizes.sm,
+                  shadowColor: TColors.accent,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: TSizes.md,
+                  ),
+                ),
+                child: Text(
+                  'Close',
+                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                        color: TColors.error,
+                      ),
+                ),
               ),
             ],
-          ),
-          Text(
-            'How much would like to top up?',
-            style: Theme.of(context).textTheme.labelMedium,
           ),
           const SizedBox(
             height: TSizes.spaceBtwSections,
           ),
           Container(
             width: double.infinity,
-            padding: EdgeInsets.only(bottom: screenWidth * .02),
+            padding: EdgeInsets.only(bottom: screenWidth * .01),
             decoration: const BoxDecoration(
               border: Border(
                 bottom: BorderSide(color: TColors.grey),
@@ -73,63 +102,88 @@ class TopupMainPage extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: TSizes.spaceBtwItems,
-          ),
           if (cardController.cardRechargeAmounts.isNotEmpty)
-            SizedBox(
-              height: screenWidth * .7,
-              child: ListWheelScrollView(
-                  controller: scrollController.controller,
-                  physics: const FixedExtentScrollPhysics(),
-                  itemExtent: screenWidth * .2,
-                  perspective: 0.008,
-                  squeeze: .9,
-                  onSelectedItemChanged: (index) {
-                    cardController.selectedTopupAmount.value =
-                        cardController.cardRechargeAmounts[index].toString();
+            Column(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    if (scrollController.scrollIndex.value != 0) {
+                      scrollController.animateToIndex(
+                          scrollController.scrollIndex.value - 1);
+                    }
                   },
-                  children: cardController.cardRechargeAmounts
-                      .map(
-                        (amount) => Container(
-                          decoration: BoxDecoration(
-                            color: TColors.primary,
-                            borderRadius:
-                                BorderRadius.circular((screenWidth * .1) / 2),
-                          ),
-                          child: SizedBox(
-                            width: screenWidth * .6,
-                            child: InkWell(
-                              onTap: () {
-                                cardController.selectedTopupAmount.value =
-                                    amount.toString();
-                              },
-                              child: Center(
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: screenWidth * .05,
-                                  ),
-                                  child: Text(
-                                    amount.toString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge!
-                                        .copyWith(
-                                          color: TColors.light,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                  icon: Icon(
+                    Iconsax.arrow_up_2,
+                    size: screenWidth * .05,
+                  ),
+                ),
+                SizedBox(
+                  height: screenWidth * .2,
+                  child: ListWheelScrollView(
+                      controller: scrollController.controller,
+                      physics: const FixedExtentScrollPhysics(),
+                      itemExtent: screenWidth * .05,
+                      perspective: 0.008,
+                      squeeze: .8,
+                      onSelectedItemChanged: (index) {
+                        scrollController.scrollIndex.value = index;
+                        cardController.selectedTopupAmount.value =
+                            cardController.cardRechargeAmounts[index]
+                                .toString();
+                      },
+                      children: cardController.cardRechargeAmounts
+                          .map(
+                            (amount) => Container(
+                              decoration: BoxDecoration(
+                                color: TColors.primary,
+                                borderRadius: BorderRadius.circular(
+                                    (screenWidth * .1) / 2),
+                              ),
+                              child: SizedBox(
+                                width: screenWidth * .6,
+                                child: InkWell(
+                                  onTap: () {
+                                    cardController.selectedTopupAmount.value =
+                                        amount.toString();
+                                  },
+                                  child: Center(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: screenWidth * .05,
+                                      ),
+                                      child: Text(
+                                        amount.toString(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge!
+                                            .copyWith(
+                                              color: TColors.light,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                      )
-                      .toList()),
+                          )
+                          .toList()),
+                ),
+                IconButton(
+                  onPressed: () {
+                    if (scrollController.scrollIndex.value <=
+                        cardController.cardRechargeAmounts.length - 1) {
+                      scrollController.animateToIndex(
+                          scrollController.scrollIndex.value + 1);
+                    }
+                  },
+                  icon: Icon(
+                    Iconsax.arrow_down_1,
+                    size: screenWidth * .05,
+                  ),
+                ),
+              ],
             ),
-          const SizedBox(
-            height: TSizes.spaceBtwSections,
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -86,11 +86,8 @@ class CardRechargeStatusStepper extends StatelessWidget {
                         child: Icon(
                           data[index].icon,
                           color: TColors.white,
-                          size: screenWidth * .05,
+                          size: screenWidth * .02,
                         ),
-                      ),
-                      SizedBox(
-                        height: screenWidth * .01,
                       ),
                       Text(
                         data[index].statusInfo,

@@ -38,7 +38,7 @@ class CardLayout extends StatelessWidget {
                   cardController.cardDetailsByUser.first.cardDetails!.length !=
                       1,
               autoPlay: false,
-              height: screenWidth * .55,
+              height: screenWidth * .2,
               enlargeCenterPage: true,
               onPageChanged: (index, reason) {
                 cardController.updatePageIndicator(index);
@@ -92,21 +92,10 @@ class CardLayout extends StatelessWidget {
               ],
             ),
 
-          const SizedBox(
-            height: TSizes.spaceBtwItems,
-          ),
-
           //-- Tap on Card Text
           const TapOnTheCardText(),
-          const SizedBox(
-            height: TSizes.spaceBtwItems,
-          ),
 
           const Divider(),
-
-          const SizedBox(
-            height: TSizes.spaceBtwItems,
-          ),
         ],
       ),
     );

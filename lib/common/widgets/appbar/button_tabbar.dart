@@ -23,7 +23,7 @@ class ButtonTabbar extends StatelessWidget {
     final isDark = THelperFunctions.isDarkMode(context);
     final screenWidth = TDeviceUtils.getScreenWidth(context);
     return SizedBox(
-      height: screenWidth * .08,
+      height: screenWidth * .03,
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
@@ -59,7 +59,7 @@ class ButtonTabbar extends StatelessWidget {
                     child: Text(
                       buttonTexts[index],
                       textScaler:
-                          TextScaleUtil.getScaledText(context, maxScale: 3),
+                          TextScaleUtil.getScaledText(context, maxScale: 1),
                       style: Theme.of(context).textTheme.labelSmall!.copyWith(
                             color: index == controller.tabIndex.value
                                 ? isDark

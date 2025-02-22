@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class AmountsScrollController extends GetxController {
   static AmountsScrollController get instance => Get.find();
   late FixedExtentScrollController controller;
+  RxInt scrollIndex = 0.obs;
 
   @override
   void onInit() {
@@ -20,8 +21,8 @@ class AmountsScrollController extends GetxController {
   void animateToIndex(index) {
     controller.animateToItem(
       index,
-      duration: const Duration(seconds: 2),
-      curve: Curves.bounceOut,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
     );
   }
 

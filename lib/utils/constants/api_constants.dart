@@ -21,7 +21,7 @@ class ApiEndPoint {
   static String appRating = "app/createapprating/";
 
   //Fetch Bannners
-  static String getBannners = "tapp_banners/tapp/banners/";
+  static String getBannners = "tapp/banners/";
 
   //Fetch Notifications
   static String getNotifications = "tapp/notifications/";

@@ -66,7 +66,7 @@ class MetroCardController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchMetroCardDetailsByUser();
+    // fetchMetroCardDetailsByUser();
     fetchCardRechargeAmounts();
   }
 
@@ -219,54 +219,45 @@ class MetroCardController extends GetxController {
   }
 
   //Fetch Card Details
-  Future<void> fetchMetroCardDetailsByUser({callingfrom = 'fetch'}) async {
-    try {
-      isCardDetailsLoading.value = true;
-      cardDetailsByUser.clear();
-      final userId = await TLocalStorage().readData('uid') ?? '';
-      final cardDetails =
-          await _cardRepository.getMetroCardDetailsByUser(userId);
-      if (cardDetails.returnCode == '0') {
-        cardDetailsByUser.add(cardDetails);
+  // Future<void> fetchMetroCardDetailsByUser({callingfrom = 'fetch'}) async {
+  //   try {
+  //     isCardDetailsLoading.value = true;
+  //     cardDetailsByUser.clear();
+  //     final userId = await TLocalStorage().readData('uid') ?? '';
+  //     final cardDetails =
+  //         await _cardRepository.getMetroCardDetailsByUser(userId);
+  //     if (cardDetails.returnCode == '0') {
+  //       cardDetailsByUser.add(cardDetails);
 
-        if (callingfrom == 'fetch' || callingfrom == 'delete') {
-          validateNebulaCard(cardDetails.cardDetails![0].cardNo!,
-              callingfrom: callingfrom);
-          fetchCardTravelHistory(cardDetails.cardDetails![0].cardNo!);
-          fetchCardTransactionDetails(cardDetails.cardDetails![0].cardNo!);
-          fetchCardLastTrasactionStatus(cardDetails.cardDetails![0].cardNo!);
-        } else if (callingfrom == 'add') {
-          fetchCardTravelHistory(cardDetails.cardDetails![0].cardNo!,
-              callingfrom: callingfrom);
-          fetchCardTransactionDetails(cardDetails.cardDetails![0].cardNo!,
-              callingfrom: callingfrom);
-          fetchCardLastTrasactionStatus(cardDetails.cardDetails![0].cardNo!);
-        }
-      }
-    } catch (e) {
-      TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
-    } finally {
-      isCardDetailsLoading.value = false;
-    }
-  }
+  //       if (callingfrom == 'fetch' || callingfrom == 'delete') {
+  //         validateNebulaCard(cardDetails.cardDetails![0].cardNo!,
+  //             callingfrom: callingfrom);
+  //         fetchCardTravelHistory(cardDetails.cardDetails![0].cardNo!);
+  //         fetchCardTransactionDetails(cardDetails.cardDetails![0].cardNo!);
+  //         fetchCardLastTrasactionStatus(cardDetails.cardDetails![0].cardNo!);
+  //       } else if (callingfrom == 'add') {
+  //         fetchCardTravelHistory(cardDetails.cardDetails![0].cardNo!,
+  //             callingfrom: callingfrom);
+  //         fetchCardTransactionDetails(cardDetails.cardDetails![0].cardNo!,
+  //             callingfrom: callingfrom);
+  //         fetchCardLastTrasactionStatus(cardDetails.cardDetails![0].cardNo!);
+  //       }
+  //     }
+  //   } catch (e) {
+  //     TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+  //   } finally {
+  //     isCardDetailsLoading.value = false;
+  //   }
+  // }
 
   //Add or update card
-  Future<void> addOrUpdateCardDetailsByUser(String type) async {
+  Future<void> addOrUpdateCardDetailsByUser({String type = 'add'}) async {
     try {
-      final cardId = type == 'add'
-          ? 0
-          : cardDetailsByUser.first.cardDetails![carouselCurrentIndex.value].id;
-      final cardNo = type == 'add'
-          ? cardNumber.text
-          : cardDetailsByUser
-              .first.cardDetails![carouselCurrentIndex.value].cardNo;
-      final cardDesc = cardHolderName.text;
-
+      final cardNo = cardNumber.text;
       //Form Validation
       if (!cardAddOrUpdateFormKey.currentState!.validate()) {
         return;
       }
-
       //Loading
       TFullScreenLoader.openLoadingDialog(
           'Validating. Please Wait....', TImages.trainAnimation);
@@ -280,50 +271,22 @@ class MetroCardController extends GetxController {
         return;
       }
 
-      if (type == 'add') {
-        final cardValidationData =
-            await validateNebulaCard(cardNo!, callingfrom: 'add');
-        if (cardValidationData!.nebulaCardValidationStatus != '00') {
-          TFullScreenLoader.stopLoading();
-          TLoaders.errorSnackBar(
-              title: 'Error',
-              message: cardValidationData.nebulaCardValidationMessage);
-          return;
-        } else {
-          storeNebulaCardValidationDetails.insert(0, cardValidationData);
-        }
-      }
-
-      final payload = {
-        "id": cardId,
-        "userID": await TLocalStorage().readData('uid') ?? '',
-        "cardNo": cardNo,
-        "cardDesc": cardDesc
-      };
-      final response =
-          await _cardRepository.addOrUpdateCardDetailsByUser(payload);
-      if (response.returnCode == '0') {
-        TFullScreenLoader.stopLoading();
-        //Removing Dialog
-        TFullScreenLoader.stopLoading();
-
-        TLoaders.successSnackBar(
-          title: 'Success!',
-          message: type == 'add'
-              ? 'Card Details added succesfully'
-              : 'Card Details updated succesfully',
-        );
-
-        //Fetching cards from server
-        fetchMetroCardDetailsByUser(callingfrom: 'add');
-      } else {
+      final cardValidationData = await validateNebulaCard(cardNo);
+      if (cardValidationData!.nebulaCardValidationStatus != '00') {
         TFullScreenLoader.stopLoading();
         TLoaders.errorSnackBar(
-          title: 'Oh Snap!',
-          message: type == 'add'
-              ? 'Unable to add card Details.Please try again later!'
-              : 'Unable to add card Details.Please try again later!',
-        );
+            title: 'Error',
+            message: cardValidationData.nebulaCardValidationMessage);
+        return;
+      } else {
+        cardDetailsByUser.add(CardDetailsByUserModel(cardDetails: [
+          CardDetailsModel(cardNo: cardNo, cardDesc: '', id: 0, uid: 0)
+        ]));
+        storeNebulaCardValidationDetails.insert(0, cardValidationData);
+        TFullScreenLoader.stopLoading();
+        fetchCardTravelHistory(cardNo);
+        fetchCardTransactionDetails(cardNo);
+        fetchCardLastTrasactionStatus(cardNo);
       }
     } catch (e) {
       TFullScreenLoader.stopLoading();
@@ -336,57 +299,9 @@ class MetroCardController extends GetxController {
     }
   }
 
-  //Add or update card
-  Future<void> deleteCardDetailsByUser() async {
-    try {
-      //Loading
-      TFullScreenLoader.openLoadingDialog(
-          'Validating. Please Wait....', TImages.trainAnimation);
-
-      //Check Internet Connectivity
-      final isConnected = await NetworkManager.instance.isConnected();
-      if (!isConnected) {
-        //Stop Loading
-        TFullScreenLoader.stopLoading();
-        TLoaders.customToast(message: 'No Internet Connection');
-        return;
-      }
-
-      final cardNo = cardDetailsByUser
-          .first.cardDetails![carouselCurrentIndex.value].cardNo;
-
-      final response = await _cardRepository.deleteCardDetailsByUser(
-          await TLocalStorage().readData('uid') ?? '', cardNo);
-
-      if (response.returnCode == '0') {
-        TFullScreenLoader.stopLoading();
-
-        TLoaders.successSnackBar(
-          title: 'Success!',
-          message: 'Card Details Deleted succesfully',
-        );
-        carouselCurrentIndex.value = 0;
-        storeNebulaCardValidationDetails.clear();
-        cardTravelHistoryList.clear();
-        cardPaymentListData.clear();
-        fetchMetroCardDetailsByUser(callingfrom: 'delete');
-      } else {
-        TFullScreenLoader.stopLoading();
-        TLoaders.errorSnackBar(
-          title: 'Oh Snap!',
-          message: 'Unable to Delete card details.Please try again later!',
-        );
-      }
-      //Stop Loading
-      TFullScreenLoader.stopLoading();
-    } catch (e) {
-      TFullScreenLoader.stopLoading();
-      TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
-    }
-  }
-
-  Future<NebulaCardValidationModel?> validateNebulaCard(String cardNumber,
-      {callingfrom = 'fetch'}) async {
+  Future<NebulaCardValidationModel?> validateNebulaCard(
+    String cardNumber,
+  ) async {
     try {
       isNebulaCardValidating.value = true;
 
@@ -410,12 +325,8 @@ class MetroCardController extends GetxController {
       if (response.nebulaCardValidationStatus != '00') {
         throw response.nebulaCardValidationMessage!;
       }
-      if (callingfrom == 'fetch') {
-        storeNebulaCardValidationDetails.insert(
-            carouselCurrentIndex.value, response);
-      } else if (callingfrom == 'delete') {
-        storeNebulaCardValidationDetails.insert(0, response);
-      }
+
+      storeNebulaCardValidationDetails.insert(0, response);
       return response;
     } catch (e) {
       TLoaders.errorSnackBar(
@@ -448,11 +359,7 @@ class MetroCardController extends GetxController {
       final response =
           await _cardRepository.getLastTransactionDetailsByCard(payload);
 
-      if (callingfrom == 'fetch') {
-        lastRcgStatusList.insert(carouselCurrentIndex.value, response);
-      } else if (callingfrom == 'delete' || callingfrom == 'add') {
-        lastRcgStatusList.insert(0, response);
-      }
+      lastRcgStatusList.insert(0, response);
     } catch (e) {
       lastRcgStatusList.insert(carouselCurrentIndex.value,
           LastRechargeStatusModel(transactionCode: null));
@@ -463,8 +370,9 @@ class MetroCardController extends GetxController {
     }
   }
 
-  Future<void> fetchCardTransactionDetails(String cardNumber,
-      {callingfrom = 'fetch'}) async {
+  Future<void> fetchCardTransactionDetails(
+    String cardNumber,
+  ) async {
     try {
       // Create the plain credentials
       isCardPaymentDataLoading.value = true;
@@ -481,11 +389,7 @@ class MetroCardController extends GetxController {
       // Make the POST request
       final response = await _cardRepository.getCardTrxDetails(payload);
 
-      if (callingfrom == 'fetch') {
-        cardPaymentListData.insert(carouselCurrentIndex.value, response);
-      } else if (callingfrom == 'delete' || callingfrom == 'add') {
-        cardPaymentListData.insert(0, response);
-      }
+      cardPaymentListData.insert(0, response);
     } catch (e) {
       cardPaymentListData.insert(
           carouselCurrentIndex.value, CardTrxDetailsModel(response: []));
@@ -497,8 +401,9 @@ class MetroCardController extends GetxController {
     }
   }
 
-  Future<void> fetchCardTravelHistory(String cardNumber,
-      {callingfrom = 'fetch'}) async {
+  Future<void> fetchCardTravelHistory(
+    String cardNumber,
+  ) async {
     try {
       isCardTravelHistoryLoading.value = true;
       // Generate required data
@@ -512,11 +417,7 @@ class MetroCardController extends GetxController {
 
       final response = await _cardRepository.getCardTravelHistory(payload);
 
-      if (callingfrom == 'fetch') {
-        cardTravelHistoryList.insert(carouselCurrentIndex.value, response);
-      } else if (callingfrom == 'delete' || callingfrom == 'add') {
-        cardTravelHistoryList.insert(0, response);
-      }
+      cardTravelHistoryList.insert(0, response);
     } catch (e) {
       cardTravelHistoryList.insert(
           carouselCurrentIndex.value, CardTravelHistoryModel(response: []));

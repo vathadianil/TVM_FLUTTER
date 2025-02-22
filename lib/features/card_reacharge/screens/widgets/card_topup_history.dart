@@ -136,7 +136,7 @@ class CardTopupHistory extends StatelessWidget {
                     height: TSizes.sm,
                   ),
                   SizedBox(
-                    width: TDeviceUtils.getScreenWidth(context) * .6,
+                    width: TDeviceUtils.getScreenWidth(context) * .1,
                     child: Text(
                       cardPaymentTrxData.merchantTransactionID ?? '',
                       style: Theme.of(context).textTheme.bodyLarge,
@@ -155,7 +155,7 @@ class CardTopupHistory extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       SizedBox(
-                        width: TDeviceUtils.getScreenWidth(context) * .5,
+                        width: TDeviceUtils.getScreenWidth(context) * .25,
                         child: Text(
                           cardPaymentTrxData.transactionDateTime != ''
                               ? THelperFunctions.getFormattedDateTimeString1(
@@ -172,7 +172,7 @@ class CardTopupHistory extends StatelessWidget {
                 ],
               ),
               Positioned(
-                top: -10,
+                top: 0,
                 right: TDeviceUtils.getScreenWidth(context) * .00001,
                 child: OutlinedButton(
                   onPressed: () {
@@ -192,8 +192,8 @@ class CardTopupHistory extends StatelessWidget {
                     ),
                     elevation: TSizes.sm,
                     shadowColor: TColors.accent,
-                    minimumSize: Size(TDeviceUtils.getScreenWidth(context) * .1,
-                        TDeviceUtils.getScreenWidth(context) * .05),
+                    // minimumSize: Size(TDeviceUtils.getScreenWidth(context) * .1,
+                    //     TDeviceUtils.getScreenWidth(context) * .05),
                     padding: const EdgeInsets.symmetric(
                       vertical: TSizes.xs,
                       horizontal: TSizes.md,

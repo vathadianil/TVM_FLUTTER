@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tsavaari/bottom_navigation/controller/navigation_controller.dart';
 // import 'package:tsavaari/bottom_navigation/widgets/floating_button.dart';
-import 'package:tsavaari/bottom_navigation/widgets/floating_button.dart';
+// import 'package:tsavaari/bottom_navigation/widgets/floating_button.dart';
 // import 'package:tsavaari/bottom_navigation/widgets/navigation_container.dart';
 // import 'package:tsavaari/data/repositories/book_qr/book_qr_repository.dart';
 // import 'package:tsavaari/data/repositories/loyalty_points/loyalty_points_repository.dart';
@@ -13,8 +13,8 @@ import 'package:tsavaari/features/qr/book_qr/controllers/station_list_controller
 // import 'package:tsavaari/features/reward_points/controllers/reward_points_controller.dart';
 // import 'package:tsavaari/utils/constants/ticket_status_codes.dart';
 // import 'package:tsavaari/features/qr/book_qr/controllers/station_list_controller.dart';
-import 'package:tsavaari/features/qr/display_qr/screens/display_qr.dart';
-import 'package:tsavaari/utils/constants/ticket_status_codes.dart';
+// import 'package:tsavaari/features/qr/display_qr/screens/display_qr.dart';
+// import 'package:tsavaari/utils/constants/ticket_status_codes.dart';
 
 class BottomNavigationMenu extends StatefulWidget {
   final bool requireAuth;
@@ -39,7 +39,7 @@ class _BottomNavigationMenuState extends State<BottomNavigationMenu> {
   void initState() {
     super.initState();
     controller = Get.put(NavigationController());
-    ordersController = Get.put(OrdersController());
+    // ordersController = Get.put(OrdersController());
     stationListController = Get.put(StationListController());
 
     if (widget.requireAuth) {
@@ -102,33 +102,33 @@ class _BottomNavigationMenuState extends State<BottomNavigationMenu> {
             //     },
             //   ),
             // ),
-            if (ordersController.activeTickets.isNotEmpty &&
-                ordersController.activeTickets.first.ticketHistory != null &&
-                (ordersController.activeTickets.first.ticketHistory![0]
-                            .tickets![0].ticketStatus ==
-                        TicketStatusCodes.newTicketString ||
-                    ordersController.activeTickets.first.ticketHistory![0]
-                            .tickets![0].ticketStatus ==
-                        TicketStatusCodes.entryUsedString))
-              FloatingButton(
-                ticketStatus: ordersController.activeTickets.first
-                        .ticketHistory![0].tickets![0].ticketStatus ??
-                    '',
-                onTap: () {
-                  Get.to(() => DisplayQrScreen(
-                        stationList: stationListController.stationList,
-                        tickets: ordersController
-                            .activeTickets.first.ticketHistory![0].tickets!,
-                        orderId: ordersController.activeTickets.first
-                                    .ticketHistory![0].tickets![0].orderID !=
-                                null
-                            ? ordersController.activeTickets.first
-                                .ticketHistory![0].tickets![0].orderID!
-                                .substring(14, 37)
-                            : '',
-                      ));
-                },
-              ),
+            // if (ordersController.activeTickets.isNotEmpty &&
+            //     ordersController.activeTickets.first.ticketHistory != null &&
+            //     (ordersController.activeTickets.first.ticketHistory![0]
+            //                 .tickets![0].ticketStatus ==
+            //             TicketStatusCodes.newTicketString ||
+            //         ordersController.activeTickets.first.ticketHistory![0]
+            //                 .tickets![0].ticketStatus ==
+            //             TicketStatusCodes.entryUsedString))
+            //   FloatingButton(
+            //     ticketStatus: ordersController.activeTickets.first
+            //             .ticketHistory![0].tickets![0].ticketStatus ??
+            //         '',
+            //     onTap: () {
+            //       Get.to(() => DisplayQrScreen(
+            //             stationList: stationListController.stationList,
+            //             tickets: ordersController
+            //                 .activeTickets.first.ticketHistory![0].tickets!,
+            //             orderId: ordersController.activeTickets.first
+            //                         .ticketHistory![0].tickets![0].orderID !=
+            //                     null
+            //                 ? ordersController.activeTickets.first
+            //                     .ticketHistory![0].tickets![0].orderID!
+            //                     .substring(14, 37)
+            //                 : '',
+            //           ));
+            //     },
+            //   ),
           ],
         ),
       ),

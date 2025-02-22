@@ -4,9 +4,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:tsavaari/common/controllers/checkbox_controller.dart';
 import 'package:tsavaari/features/card_reacharge/controllers/metro_card_controller.dart';
 import 'package:tsavaari/features/card_reacharge/models/nebula_card_validation_model.dart';
-import 'package:tsavaari/features/card_reacharge/screens/widgets/reedem_points_container.dart';
+// import 'package:tsavaari/features/card_reacharge/screens/widgets/reedem_points_container.dart';
 import 'package:tsavaari/features/qr/book_qr/screens/widgets/proceed_to_pay_btn.dart';
-import 'package:tsavaari/features/reward_points/controllers/reward_points_controller.dart';
+// import 'package:tsavaari/features/reward_points/controllers/reward_points_controller.dart';
 import 'package:tsavaari/utils/constants/colors.dart';
 import 'package:tsavaari/utils/constants/sizes.dart';
 import 'package:tsavaari/utils/constants/text_size.dart';
@@ -23,7 +23,7 @@ class ConfirmTopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(CheckBoxController());
-    final rewardPointsController = RewardPointsController.instance; 
+    // final rewardPointsController = RewardPointsController.instance;
     final cardController = MetroCardController.instance;
     final isDark = THelperFunctions.isDarkMode(context);
 
@@ -50,19 +50,19 @@ class ConfirmTopup extends StatelessWidget {
                 textScaler: TextScaleUtil.getScaledText(context),
                 style: Theme.of(context).textTheme.headlineSmall),
           ],
-        ),        
-        
-        if (rewardPointsController.loyaltyProgramKey.value == 1)...[
-          const SizedBox(
-            height: TSizes.spaceBtwItems,
-          ),
-          const RedeemPointsContainer(),
-        ],
-       
+        ),
+
+        // if (rewardPointsController.loyaltyProgramKey.value == 1)...[
+        //   const SizedBox(
+        //     height: TSizes.spaceBtwItems,
+        //   ),
+        //   const RedeemPointsContainer(),
+        // ],
+
         const SizedBox(
           height: TSizes.spaceBtwSections,
         ),
-        
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -97,68 +97,68 @@ class ConfirmTopup extends StatelessWidget {
         const SizedBox(
           height: TSizes.spaceBtwItems,
         ),
-        
-        //-- Redeem Points Section - 
+
+        //-- Redeem Points Section -
         Obx(() {
-          return cardController.isRedeemed.value 
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Redeemed Amount",
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      Text(
-                        '- ${TTexts.rupeeSymbol}${cardController.maxRedemptionAmount.value}/-',
-                        // cardController.selectedTopupAmount.value != cardController.maxRedemptionAmount.value.toString()
-                        //     ? '- ${TTexts.rupeeSymbol}${cardController.maxRedemptionAmount.value}/-'
-                        //     : '${TTexts.rupeeSymbol}0/-',
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ],
-                  ),
-                  Text(
-                    'Points redeemed for this order is ${cardController.pointsToRedeem} pts',
-                    // cardController.selectedTopupAmount.value != cardController.maxRedemptionAmount.value.toString()
-                    //     ? 'Points redeemed for this order is ${cardController.pointsToRedeem} pts'
-                    //     : 'Redemption is not permitted for this amount.',
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                  const Divider(),
-                  const SizedBox(
-                    height: TSizes.spaceBtwItems,
-                  ),
-                  // Final Recharge Amount
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Final Amount",
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            '${TTexts.rupeeSymbol}${cardController.finalRechargeAmount.value}/-',
-                            // cardController.selectedTopupAmount.value != cardController.maxRedemptionAmount.value.toString()
-                            //     ? '${TTexts.rupeeSymbol}${cardController.finalRechargeAmount.value}/-'
-                            //     : '${TTexts.rupeeSymbol}${cardController.selectedTopupAmount.value}/-',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Divider(),
-                  const SizedBox(
-                    height: TSizes.spaceBtwItems,
-                  ),
-                ],
-              )
-            : const SizedBox.shrink(); 
+          return cardController.isRedeemed.value
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Redeemed Amount",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        Text(
+                          '- ${TTexts.rupeeSymbol}${cardController.maxRedemptionAmount.value}/-',
+                          // cardController.selectedTopupAmount.value != cardController.maxRedemptionAmount.value.toString()
+                          //     ? '- ${TTexts.rupeeSymbol}${cardController.maxRedemptionAmount.value}/-'
+                          //     : '${TTexts.rupeeSymbol}0/-',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ],
+                    ),
+                    Text(
+                      'Points redeemed for this order is ${cardController.pointsToRedeem} pts',
+                      // cardController.selectedTopupAmount.value != cardController.maxRedemptionAmount.value.toString()
+                      //     ? 'Points redeemed for this order is ${cardController.pointsToRedeem} pts'
+                      //     : 'Redemption is not permitted for this amount.',
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
+                    const Divider(),
+                    const SizedBox(
+                      height: TSizes.spaceBtwItems,
+                    ),
+                    // Final Recharge Amount
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Final Amount",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              '${TTexts.rupeeSymbol}${cardController.finalRechargeAmount.value}/-',
+                              // cardController.selectedTopupAmount.value != cardController.maxRedemptionAmount.value.toString()
+                              //     ? '${TTexts.rupeeSymbol}${cardController.finalRechargeAmount.value}/-'
+                              //     : '${TTexts.rupeeSymbol}${cardController.selectedTopupAmount.value}/-',
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const Divider(),
+                    const SizedBox(
+                      height: TSizes.spaceBtwItems,
+                    ),
+                  ],
+                )
+              : const SizedBox.shrink();
         }),
 
         Row(
@@ -221,21 +221,20 @@ class ConfirmTopup extends StatelessWidget {
             ),
           ),
         ),
-       CustomBtnWithTermsDialog(
-        btnText: 'Proceed to Pay',
-        onPressed: () {
-          if ((int.parse(cardDetails.currentBalance!) +
-                  int.parse(cardController.selectedTopupAmount.value)) <= 
-              3000) {
-            cardController.proceedToRecharge();
-          } else {
-            TLoaders.warningSnackBar(
-                title: 'Topup Limit Exceded',
-                message:
-                    'Your current balance and top-up amount must not exceed the limit of 3,000. Please select a lower amount.');
-          }
-        }),
-
+        CustomBtnWithTermsDialog(
+            btnText: 'Proceed to Pay',
+            onPressed: () {
+              if ((int.parse(cardDetails.currentBalance!) +
+                      int.parse(cardController.selectedTopupAmount.value)) <=
+                  3000) {
+                cardController.proceedToRecharge();
+              } else {
+                TLoaders.warningSnackBar(
+                    title: 'Topup Limit Exceded',
+                    message:
+                        'Your current balance and top-up amount must not exceed the limit of 3,000. Please select a lower amount.');
+              }
+            }),
       ],
     );
   }

@@ -3,21 +3,16 @@ import 'package:iconsax/iconsax.dart';
 import 'package:tsavaari/features/card_reacharge/controllers/metro_card_controller.dart';
 import 'package:tsavaari/utils/constants/colors.dart';
 import 'package:tsavaari/utils/constants/sizes.dart';
-import 'package:tsavaari/utils/device/device_utility.dart';
 import 'package:tsavaari/utils/helpers/helper_functions.dart';
 import 'package:tsavaari/utils/validators/validation.dart';
 
 class AddOrEditCardDetailsPopup extends StatelessWidget {
   const AddOrEditCardDetailsPopup({
     super.key,
-    required this.type,
   });
-
-  final String type;
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = TDeviceUtils.getScreenWidth(context);
     final cardController = MetroCardController.instance;
     final isDark = THelperFunctions.isDarkMode(context);
 
@@ -40,23 +35,10 @@ class AddOrEditCardDetailsPopup extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          type == 'add' ? 'Add New Card' : 'Edit Existing Card',
+                          'Enter Your Card Number',
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
-                        Text(
-                          type == 'add'
-                              ? 'Enter the Card Details'
-                              : 'Edit the Card Details',
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        )
                       ],
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        FocusScope.of(context).requestFocus(FocusNode());
-                      },
-                      icon: const Icon(Iconsax.close_circle),
                     ),
                   ],
                 ),
@@ -65,9 +47,8 @@ class AddOrEditCardDetailsPopup extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: cardController.cardNumber,
-                  enabled: type == 'add',
                   keyboardType: TextInputType.number,
-                  maxLength: 14,        
+                  maxLength: 14,
                   validator: (value) => TValidator.validateCardNumber(value),
                   decoration: InputDecoration(
                     counterText: "",
@@ -77,11 +58,7 @@ class AddOrEditCardDetailsPopup extends StatelessWidget {
                     ),
                     suffixIcon: Icon(
                       Iconsax.card,
-                      color: type == 'add'
-                          ? isDark
-                              ? TColors.accent
-                              : TColors.primary
-                          : TColors.darkGrey,
+                      color: isDark ? TColors.accent : TColors.primary,
                     ),
                     // labelText: 'Card Number',
 
@@ -91,28 +68,8 @@ class AddOrEditCardDetailsPopup extends StatelessWidget {
                           .inputDecorationTheme
                           .labelStyle!
                           .copyWith(
-                              color: type == 'add'
-                                  ? isDark
-                                      ? TColors.light
-                                      : TColors.black
-                                  : TColors.darkGrey),
+                              color: isDark ? TColors.light : TColors.black),
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  height: TSizes.spaceBtwItems,
-                ),
-                TextFormField(
-                  controller: cardController.cardHolderName,
-                  validator: (value) =>
-                      TValidator.validateEmptyText('Card Holder Name', value),
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                      vertical: 0,
-                      horizontal: TSizes.md,
-                    ),
-                    suffixIcon: Icon(Iconsax.user),
-                    labelText: 'Card Holder Name',
                   ),
                 ),
                 const SizedBox(
@@ -123,17 +80,16 @@ class AddOrEditCardDetailsPopup extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        minimumSize: Size(screenWidth * .1, screenWidth * .06),
                         padding: const EdgeInsets.symmetric(
                           vertical: TSizes.xs,
                           horizontal: TSizes.lg,
                         ),
                       ),
                       onPressed: () {
-                        cardController.addOrUpdateCardDetailsByUser(type);
+                        cardController.addOrUpdateCardDetailsByUser();
                       },
                       child: Text(
-                        'Save',
+                        'Search',
                         style: Theme.of(context)
                             .textTheme
                             .labelLarge!

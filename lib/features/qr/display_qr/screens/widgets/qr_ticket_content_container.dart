@@ -163,7 +163,10 @@ class QrTicketContentContainer extends StatelessWidget {
                 onPressed: () {
                   _sliderController.previousPage();
                 },
-                icon: const Icon(Iconsax.arrow_left_2),
+                icon: Icon(
+                  Iconsax.arrow_left_2,
+                  size: screenWidth * .05,
+                ),
               ),
             SizedBox(
               height: screenWidth * .11,
@@ -285,12 +288,13 @@ class QrTicketContentContainer extends StatelessWidget {
             ),
             if (!isSjtSinglePassenger && !isRjtSinglePassenger)
               IconButton(
-                style: IconButton.styleFrom(
-                    padding: EdgeInsets.only(left: screenWidth * .02)),
                 onPressed: () {
                   _sliderController.nextPage();
                 },
-                icon: const Icon(Iconsax.arrow_right_34),
+                icon: Icon(
+                  Iconsax.arrow_right_34,
+                  size: screenWidth * .05,
+                ),
               ),
           ],
         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tsavaari/features/card_reacharge/controllers/metro_card_controller.dart';
+// import 'package:tsavaari/features/card_reacharge/controllers/metro_card_controller.dart';
 import 'package:tsavaari/utils/constants/colors.dart';
 import 'package:tsavaari/utils/constants/sizes.dart';
 import 'package:tsavaari/utils/device/device_utility.dart';
@@ -14,7 +14,7 @@ class DeleteCardPopup extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = TDeviceUtils.getScreenWidth(context);
     final isDark = THelperFunctions.isDarkMode(context);
-    final controller = MetroCardController.instance;
+    // final controller = MetroCardController.instance;
     return Dialog(
       backgroundColor: isDark ? TColors.dark : TColors.white,
       child: Padding(
@@ -56,7 +56,7 @@ class DeleteCardPopup extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    controller.deleteCardDetailsByUser();
+                    // controller.deleteCardDetailsByUser();
                   },
                   child: const Text('Yes'),
                 ),

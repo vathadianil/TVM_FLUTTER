@@ -1,7 +1,7 @@
 class CardDetailsByUserModel {
   String? returnCode;
   String? returnMessage;
-  List<CardDetails>? cardDetails;
+  List<CardDetailsModel>? cardDetails;
 
   CardDetailsByUserModel(
       {this.returnCode, this.returnMessage, this.cardDetails});
@@ -10,9 +10,9 @@ class CardDetailsByUserModel {
     returnCode = json['returnCode'].toString();
     returnMessage = json['returnMessage'];
     if (json['cardDetails'] != null) {
-      cardDetails = <CardDetails>[];
+      cardDetails = <CardDetailsModel>[];
       json['cardDetails'].forEach((v) {
-        cardDetails!.add(CardDetails.fromJson(v));
+        cardDetails!.add(CardDetailsModel.fromJson(v));
       });
     }
   }
@@ -28,15 +28,15 @@ class CardDetailsByUserModel {
   }
 }
 
-class CardDetails {
+class CardDetailsModel {
   int? id;
   int? uid;
   String? cardNo;
   String? cardDesc;
 
-  CardDetails({this.id, this.uid, this.cardNo, this.cardDesc});
+  CardDetailsModel({this.id, this.uid, this.cardNo, this.cardDesc});
 
-  CardDetails.fromJson(Map<String, dynamic> json) {
+  CardDetailsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     uid = json['uid'];
     cardNo = json['card_no'];

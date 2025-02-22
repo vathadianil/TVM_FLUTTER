@@ -87,9 +87,6 @@ class PaymentProcessingScreen extends StatelessWidget {
                             .headlineSmall!
                             .copyWith(color: TColors.success),
                       ),
-                      const SizedBox(
-                        height: TSizes.spaceBtwSections,
-                      ),
                       const TAnimationLoaderWidget(
                         isGifanimation: false,
                         animation: TImages.paymentSuccess,

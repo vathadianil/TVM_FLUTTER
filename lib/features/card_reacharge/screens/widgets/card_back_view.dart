@@ -30,7 +30,7 @@ class CardBackView extends StatelessWidget {
         vertical: screenWidth * .025,
       ),
       padding: EdgeInsets.symmetric(
-          vertical: screenWidth * .025, horizontal: screenWidth * .03),
+          vertical: screenWidth * .01, horizontal: screenWidth * .02),
       height: cardHeight,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(TSizes.md),
@@ -52,7 +52,7 @@ class CardBackView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CircleAvatar(
-                  radius: screenWidth * .04,
+                  radius: screenWidth * .015,
                   backgroundColor: TColors.white,
                   backgroundImage: const AssetImage(TImages.appLogo),
                 ),
@@ -61,9 +61,6 @@ class CardBackView extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyLarge!,
                 ),
               ],
-            ),
-            SizedBox(
-              height: cardHeight * .02,
             ),
             if (cardController.isLastRcgStatusLoading.value)
               ShimmerEffect(
