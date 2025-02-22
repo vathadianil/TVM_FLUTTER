@@ -14,7 +14,7 @@ class PassengerCount extends StatelessWidget {
   final int currentValue;
   @override
   Widget build(BuildContext context) {
-    final textScaler = TextScaleUtil.getScaledText(context, maxScale: 3);
+    final textScaler = TextScaleUtil.getScaledText(context, maxScale: 1);
     return Row(
       children: [
         Text(TTexts.tickets,

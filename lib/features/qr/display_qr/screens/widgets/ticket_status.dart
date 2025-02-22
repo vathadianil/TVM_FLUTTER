@@ -30,7 +30,7 @@ class TicketStatus extends StatelessWidget {
                 ? 'In Transit'
                 : ticketStatus,
             textAlign: TextAlign.center,
-            textScaler: TextScaleUtil.getScaledText(context, maxScale: 3),
+            textScaler: TextScaleUtil.getScaledText(context, maxScale: 1),
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
                 color: ticketStatus == TicketStatusCodes.newTicketString
                     ? TColors.white

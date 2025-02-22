@@ -49,7 +49,8 @@ class RefundPreview extends StatelessWidget {
                 width: TSizes.md,
               ),
               Text(TTexts.cancelTicket,
-                  textScaler: TextScaleUtil.getScaledText(context),
+                  textScaler:
+                      TextScaleUtil.getScaledText(context, maxScale: 1.5),
                   style: Theme.of(context).textTheme.headlineSmall),
             ],
           ),
@@ -64,7 +65,7 @@ class RefundPreview extends StatelessWidget {
                   Text(
                     TTexts.selectPassengers,
                     textScaler:
-                        TextScaleUtil.getScaledText(context, maxScale: 2.4),
+                        TextScaleUtil.getScaledText(context, maxScale: 1),
                   ),
 
                 if (tickets!.length == 1)
@@ -85,7 +86,7 @@ class RefundPreview extends StatelessWidget {
                     child: Text(
                       TTexts.selectAll,
                       textScaler:
-                          TextScaleUtil.getScaledText(context, maxScale: 2.4),
+                          TextScaleUtil.getScaledText(context, maxScale: 1),
                     ),
                   ),
               ],
@@ -113,7 +114,7 @@ class RefundPreview extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return const ShimmerEffect(
                               width: double.infinity,
-                              height: 60,
+                              height: 40,
                             );
                           },
                           separatorBuilder: (context, index) {
@@ -155,7 +156,7 @@ class RefundPreview extends StatelessWidget {
                           title: Text(
                             '${TTexts.passenger} ${(index + 1).toString()}',
                             textScaler: TextScaleUtil.getScaledText(context,
-                                maxScale: 2.4),
+                                maxScale: 1),
                           ),
                           subtitle: Text(
                             refundController
@@ -164,7 +165,7 @@ class RefundPreview extends StatelessWidget {
                                 ? TTexts.refundPossible
                                 : TTexts.refundNotPossible,
                             textScaler: TextScaleUtil.getScaledText(context,
-                                maxScale: 2.4),
+                                maxScale: 1),
                           ),
                           subtitleTextStyle: TextStyle(
                               color: refundController.refundPreviewData[index]
@@ -184,7 +185,7 @@ class RefundPreview extends StatelessWidget {
                                       '${TTexts.rupeeSymbol} ${refundController.refundPreviewData[index].singleTicketValue ?? 0}/-',
                                       textScaler: TextScaleUtil.getScaledText(
                                           context,
-                                          maxScale: 2.4),
+                                          maxScale: 1),
                                       style: Theme.of(context)
                                           .textTheme
                                           .headlineSmall,
@@ -193,7 +194,7 @@ class RefundPreview extends StatelessWidget {
                                       TTexts.refundAmt,
                                       textScaler: TextScaleUtil.getScaledText(
                                           context,
-                                          maxScale: 2.4),
+                                          maxScale: 1),
                                     ),
                                   ],
                                 )
@@ -220,8 +221,8 @@ class RefundPreview extends StatelessWidget {
                                   showDuration: const Duration(seconds: 5),
                                   triggerMode: TooltipTriggerMode.tap,
                                   child: TCircularContainer(
-                                    width: screenWidth * .07,
-                                    height: screenWidth * .07,
+                                    width: screenWidth * .03,
+                                    height: screenWidth * .03,
                                     applyBoxShadow: true,
                                     backgroundColor:
                                         dark ? TColors.dark : TColors.white,

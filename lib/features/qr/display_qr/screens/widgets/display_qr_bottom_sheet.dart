@@ -4,11 +4,11 @@ import 'package:tsavaari/features/qr/book_qr/models/station_list_model.dart';
 import 'package:tsavaari/features/qr/display_qr/controllers/bottom_sheet_pageview_controller.dart';
 import 'package:tsavaari/features/qr/display_qr/models/qr_code_model.dart';
 import 'package:tsavaari/features/qr/display_qr/screens/widgets/bottom_sheet_main_page.dart';
-import 'package:tsavaari/features/qr/display_qr/screens/widgets/change_destination_preview.dart';
+// import 'package:tsavaari/features/qr/display_qr/screens/widgets/change_destination_preview.dart';
 import 'package:tsavaari/features/qr/display_qr/screens/widgets/refund_preview.dart';
 import 'package:tsavaari/utils/constants/sizes.dart';
 import 'package:tsavaari/utils/constants/ticket_status_codes.dart';
-import 'package:tsavaari/utils/device/device_utility.dart';
+// import 'package:tsavaari/utils/device/device_utility.dart';
 
 class DisplayQrBottomSheet extends StatelessWidget {
   const DisplayQrBottomSheet({
@@ -45,37 +45,29 @@ class DisplayQrBottomSheet extends StatelessWidget {
     }
 
     final bottomSheetController = Get.put(BottomSheetPageViewController());
-    final screenHeight = TDeviceUtils.getScreenHeight();
+
     return Padding(
-      padding: const EdgeInsets.all(TSizes.defaultSpace),
-      child: Obx(() {
-        return SizedBox(
-          height: bottomSheetController.currentPageIndex.value == 0
-              ? screenHeight * .4
-              : screenHeight * .7,
-          child: PageView(
-            controller: bottomSheetController.pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              const BottomSheetMainPage(),
-              ChangeDesinationPreview(
-                tickets: tickets![0].ticketType ==
-                        TicketStatusCodes.ticketTypeRjtString
-                    ? getRjtTicketData()
-                    : tickets,
-                stationList: stationList,
-              ),
-              RefundPreview(
-                tickets: tickets![0].ticketType ==
-                        TicketStatusCodes.ticketTypeRjtString
-                    ? getRjtTicketData()
-                    : tickets,
-                orderId: orderId,
-              ),
-            ],
-          ),
-        );
-      }),
-    );
+        padding: const EdgeInsets.all(TSizes.defaultSpace),
+        child: PageView(
+          controller: bottomSheetController.pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            const BottomSheetMainPage(),
+            // ChangeDesinationPreview(
+            //   tickets: tickets![0].ticketType ==
+            //           TicketStatusCodes.ticketTypeRjtString
+            //       ? getRjtTicketData()
+            //       : tickets,
+            //   stationList: stationList,
+            // ),
+            RefundPreview(
+              tickets: tickets![0].ticketType ==
+                      TicketStatusCodes.ticketTypeRjtString
+                  ? getRjtTicketData()
+                  : tickets,
+              orderId: orderId,
+            ),
+          ],
+        ));
   }
 }

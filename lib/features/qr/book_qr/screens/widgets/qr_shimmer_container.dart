@@ -24,12 +24,12 @@ class QrShimmerContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ShimmerEffect(
-                width: TDeviceUtils.getScreenWidth(context) / 2.5,
+                width: TDeviceUtils.getScreenWidth(context) * .2,
                 height: 30,
                 radius: 30,
               ),
               ShimmerEffect(
-                width: TDeviceUtils.getScreenWidth(context) / 5,
+                width: TDeviceUtils.getScreenWidth(context) * .2,
                 height: 30,
                 radius: 30,
               ),

@@ -6,7 +6,7 @@ import 'package:tsavaari/utils/constants/sizes.dart';
 import 'package:tsavaari/utils/constants/text_size.dart';
 import 'package:tsavaari/utils/constants/text_strings.dart';
 import 'package:tsavaari/utils/device/device_utility.dart';
-import 'package:tsavaari/utils/helpers/helper_functions.dart';
+// import 'package:tsavaari/utils/helpers/helper_functions.dart';
 
 class BottomSheetMainPage extends StatelessWidget {
   const BottomSheetMainPage({
@@ -19,55 +19,83 @@ class BottomSheetMainPage extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          TTexts.hereToHelp,
-          textScaler: TextScaleUtil.getScaledText(context),
-          style: Theme.of(context).textTheme.headlineMedium,
+        Row(
+          children: [
+            Text(
+              TTexts.hereToHelp,
+              textScaler: TextScaleUtil.getScaledText(context, maxScale: 1),
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const Spacer(),
+            OutlinedButton(
+              onPressed: () {
+                print('close pressed');
+                Navigator.pop(context);
+              },
+              style: OutlinedButton.styleFrom(
+                backgroundColor: TColors.white,
+                side: const BorderSide(
+                  color: TColors.error,
+                ),
+                elevation: TSizes.sm,
+                shadowColor: TColors.accent,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: TSizes.md,
+                ),
+              ),
+              child: Text(
+                'Close',
+                style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                      color: TColors.error,
+                    ),
+              ),
+            ),
+          ],
         ),
         SizedBox(
           height: screenWidth * .05,
         ),
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 1,
-              color: THelperFunctions.isDarkMode(context)
-                  ? TColors.accent
-                  : TColors.primary,
-            ),
-            borderRadius: BorderRadius.circular(
-              TSizes.md,
-            ),
-          ),
-          child: ListTile(
-            onTap: () {
-              BottomSheetPageViewController.instace
-                  .changeDesitinationPage(context);
-            },
-            leading: Icon(
-              Iconsax.location,
-              color: THelperFunctions.isDarkMode(context)
-                  ? TColors.accent
-                  : TColors.primary,
-            ),
-            title: Text(
-              TTexts.changeDest,
-              textScaler: TextScaleUtil.getScaledText(context),
-              style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                  color: THelperFunctions.isDarkMode(context)
-                      ? TColors.accent
-                      : TColors.primary),
-            ),
-            subtitle: Text(
-              TTexts.changeDestDesc,
-              textScaler: TextScaleUtil.getScaledText(context, maxScale: 2.5),
-              style: Theme.of(context).textTheme.labelLarge,
-            ),
-          ),
-        ),
-        SizedBox(
-          height: screenWidth * .04,
-        ),
+        // Container(
+        //   decoration: BoxDecoration(
+        //     border: Border.all(
+        //       width: 1,
+        //       color: THelperFunctions.isDarkMode(context)
+        //           ? TColors.accent
+        //           : TColors.primary,
+        //     ),
+        //     borderRadius: BorderRadius.circular(
+        //       TSizes.md,
+        //     ),
+        //   ),
+        //   child: ListTile(
+        //     onTap: () {
+        //       BottomSheetPageViewController.instace
+        //           .changeDesitinationPage(context);
+        //     },
+        //     leading: Icon(
+        //       Iconsax.location,
+        //       color: THelperFunctions.isDarkMode(context)
+        //           ? TColors.accent
+        //           : TColors.primary,
+        //     ),
+        //     title: Text(
+        //       TTexts.changeDest,
+        //       textScaler: TextScaleUtil.getScaledText(context),
+        //       style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+        //           color: THelperFunctions.isDarkMode(context)
+        //               ? TColors.accent
+        //               : TColors.primary),
+        //     ),
+        //     subtitle: Text(
+        //       TTexts.changeDestDesc,
+        //       textScaler: TextScaleUtil.getScaledText(context, maxScale: 2.5),
+        //       style: Theme.of(context).textTheme.labelLarge,
+        //     ),
+        //   ),
+        // ),
+        // SizedBox(
+        //   height: screenWidth * .04,
+        // ),
         Container(
           decoration: BoxDecoration(
             border: Border.all(width: 1, color: TColors.error),
@@ -83,7 +111,7 @@ class BottomSheetMainPage extends StatelessWidget {
             ),
             title: Text(
               TTexts.cancelTicket,
-              textScaler: TextScaleUtil.getScaledText(context),
+              textScaler: TextScaleUtil.getScaledText(context, maxScale: 1.5),
               style: Theme.of(context)
                   .textTheme
                   .headlineSmall!
@@ -91,7 +119,7 @@ class BottomSheetMainPage extends StatelessWidget {
             ),
             subtitle: Text(
               TTexts.cancelTicketDesc,
-              textScaler: TextScaleUtil.getScaledText(context, maxScale: 2.5),
+              textScaler: TextScaleUtil.getScaledText(context, maxScale: 1),
               style: Theme.of(context).textTheme.labelLarge,
             ),
           ),

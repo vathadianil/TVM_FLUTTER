@@ -31,7 +31,7 @@ class TTicketShapeWidget extends StatelessWidget {
               color: backgroundColor,
               borderRadius: BorderRadius.circular(TSizes.md)),
           padding: const EdgeInsets.all(
-            TSizes.defaultSpace,
+            TSizes.sm,
           ),
           child: child,
         ),

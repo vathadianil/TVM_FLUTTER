@@ -29,7 +29,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = TDeviceUtils.getScreenWidth(context);
-    
+
     return HeaderSectionContainer(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: TSizes.md),
@@ -49,7 +49,11 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ))
               : leadingIcon != null
                   ? IconButton(
-                      onPressed: leadingOnPressed, icon: Icon(leadingIcon, color: TColors.white,))
+                      onPressed: leadingOnPressed,
+                      icon: Icon(
+                        leadingIcon,
+                        color: TColors.white,
+                      ))
                   : null,
           //title: title,
           title: Row(
@@ -57,7 +61,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               if (showLogo)
                 Image(
-                  width: screenWidth * .065,
+                  width: screenWidth * .035,
                   image: const AssetImage(TImages.appLogo),
                 ),
               if (showLogo && title != null) const SizedBox(width: TSizes.sm),

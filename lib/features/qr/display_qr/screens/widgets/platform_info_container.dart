@@ -79,7 +79,7 @@ class PlatformInfoContainer extends StatelessWidget {
       ];
     }
     return SizedBox(
-      height: screenHeight * .095,
+      height: screenHeight * .135,
       child: ListView.separated(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
@@ -88,26 +88,26 @@ class PlatformInfoContainer extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: screenWidth * .02,
+                  height: screenWidth * .01,
                 ),
                 TCircularContainer(
                   applyBoxShadow: true,
                   boxShadow: getBoxShadow(platFormInfo[index].color),
-                  width: screenWidth * .07,
-                  height: screenWidth * .07,
-                  radius: screenWidth * .07,
+                  width: screenWidth * .03,
+                  height: screenWidth * .03,
+                  radius: screenWidth * .03,
                   child: Center(
                     child: platFormInfo[index].isInterChange
                         ? RoundedCornerImage(
                             imageUrl: TImages.interChangeIcon,
                             isNetworkImage: false,
-                            width: screenWidth * .05,
-                            height: screenWidth * .05,
+                            width: screenWidth * .02,
+                            height: screenWidth * .02,
                             padding: const EdgeInsets.all(2),
                           )
                         : Icon(
                             Iconsax.location_tick5,
-                            size: screenWidth * .04,
+                            size: screenWidth * .02,
                             color: getColor(
                               platFormInfo[index].color[0],
                             ),
@@ -115,7 +115,7 @@ class PlatformInfoContainer extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: screenWidth * .02,
+                  height: screenWidth * .005,
                 ),
                 Text(
                   platFormInfo[index]
@@ -124,8 +124,7 @@ class PlatformInfoContainer extends StatelessWidget {
                           .replaceFirst(' ', '\n') ??
                       '',
                   textAlign: TextAlign.center,
-                  textScaler:
-                      TextScaleUtil.getScaledText(context, maxScale: 2.5),
+                  textScaler: TextScaleUtil.getScaledText(context, maxScale: 1),
                   style: Theme.of(context)
                       .textTheme
                       .labelSmall!
@@ -143,12 +142,13 @@ class PlatformInfoContainer extends StatelessWidget {
                 Text(
                   platFormInfo[index].platform,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: platFormInfo[index].platform == 'P1'
-                          ? TColors.thickYellow
-                          : platFormInfo[index].platform == 'P2'
-                              ? TColors.megenta
-                              : TColors.dark,
-                      fontWeight: FontWeight.bold),
+                        color: platFormInfo[index].platform == 'P1'
+                            ? TColors.thickYellow
+                            : platFormInfo[index].platform == 'P2'
+                                ? TColors.megenta
+                                : TColors.dark,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
                 SizedBox(
                     width: platFormInfo.length > 2
@@ -156,7 +156,7 @@ class PlatformInfoContainer extends StatelessWidget {
                         : screenWidth * 0.2,
                     child: Icon(
                       Iconsax.arrow_right_14,
-                      size: screenWidth * 0.06,
+                      size: screenWidth * 0.03,
                       color: getColor(
                         platFormInfo[index + 1].color[0],
                       ),

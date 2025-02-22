@@ -17,7 +17,7 @@ class CarbonEmissionMessage extends StatelessWidget {
         Expanded(
           child: Text(
             message,
-            textScaler: TextScaleUtil.getScaledText(context, maxScale: 3),
+            textScaler: TextScaleUtil.getScaledText(context, maxScale: 1),
             style: Theme.of(context)
                 .textTheme
                 .labelSmall!

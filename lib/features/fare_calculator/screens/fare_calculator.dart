@@ -31,7 +31,8 @@ class FareCalculatorScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(TSizes.defaultSpace),
+            padding:
+                const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
             child: Column(
               children: [
                 Container(

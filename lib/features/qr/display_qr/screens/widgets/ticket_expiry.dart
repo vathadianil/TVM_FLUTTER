@@ -19,7 +19,7 @@ class TicketExpiry extends StatelessWidget {
       children: [
         Text(
           TTexts.validUpto,
-          textScaler: TextScaleUtil.getScaledText(context, maxScale: 3),
+          textScaler: TextScaleUtil.getScaledText(context, maxScale: 1),
           style: Theme.of(context)
               .textTheme
               .labelSmall!
@@ -30,7 +30,7 @@ class TicketExpiry extends StatelessWidget {
         ),
         Text(
           dateTime,
-          textScaler: TextScaleUtil.getScaledText(context, maxScale: 3),
+          textScaler: TextScaleUtil.getScaledText(context, maxScale: 1),
           style: Theme.of(context)
               .textTheme
               .labelSmall!
