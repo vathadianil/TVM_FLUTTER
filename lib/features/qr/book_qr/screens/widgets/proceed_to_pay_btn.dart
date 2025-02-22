@@ -41,8 +41,7 @@ class CustomBtnWithTermsDialog extends StatelessWidget {
               children: [
                 Text(
                   TTexts.iAgree,
-                  textScaler:
-                      TextScaleUtil.getScaledText(context, maxScale: 2.5),
+                  textScaler: TextScaleUtil.getScaledText(context, maxScale: 1),
                   style: Theme.of(context).textTheme.labelSmall,
                 ),
                 UnderLinedTextButton(

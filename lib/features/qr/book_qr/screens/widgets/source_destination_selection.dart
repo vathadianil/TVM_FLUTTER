@@ -27,7 +27,7 @@ class SourceDestinationSelection extends StatelessWidget {
     final voiceSearchController = Get.put(VoiceSearchController());
 
     return SizedBox(
-      height: 220,
+      height: 235,
       child: LayoutBuilder(
         builder: (context, consttraint) => Stack(
           clipBehavior: Clip.none,
@@ -36,7 +36,7 @@ class SourceDestinationSelection extends StatelessWidget {
               () => Row(
                 children: [
                   SizedBox(
-                    width: TDeviceUtils.getScreenWidth(context) * .1,
+                    width: TDeviceUtils.getScreenWidth(context) * .05,
                   ),
                   Expanded(
                     child: Column(
@@ -48,12 +48,10 @@ class SourceDestinationSelection extends StatelessWidget {
                           ),
                         Text(
                           TTexts.origin,
-                          textScaler:
-                              TextScaleUtil.getScaledText(context, maxScale: 3),
+                          textScaler: TextScaleUtil.getScaledText(
+                            context,
+                          ),
                           style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        const SizedBox(
-                          height: TSizes.spaceBtwItems / 2,
                         ),
                         if (controller.isLoading.value)
                           const ShimmerEffect(
@@ -79,12 +77,10 @@ class SourceDestinationSelection extends StatelessWidget {
                         ),
                         Text(
                           TTexts.destination,
-                          textScaler:
-                              TextScaleUtil.getScaledText(context, maxScale: 3),
+                          textScaler: TextScaleUtil.getScaledText(
+                            context,
+                          ),
                           style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        const SizedBox(
-                          height: TSizes.spaceBtwItems / 2,
                         ),
                         if (controller.isLoading.value)
                           const ShimmerEffect(
@@ -123,7 +119,7 @@ class SourceDestinationSelection extends StatelessWidget {
               top: 65,
               left: 7,
               child: CustomPaint(
-                size: Size(2, consttraint.maxHeight * .4),
+                size: Size(2, consttraint.maxHeight * .5),
                 painter: const DashedLineVerticalPainter(),
               ),
             ),

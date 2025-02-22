@@ -159,8 +159,12 @@ class TDropdown extends StatelessWidget {
             width: screenWidth * .41,
             child: Text(
               //selectedItem = selectedItem != '' ? selectedItem! : labelText,
-              selectedItem = selectedItem != '' ? selectedItem ?? '' : labelText, //Station Facilities Issue Fixed Here
-              textScaler: TextScaleUtil.getScaledText(context, maxScale: 3),
+              selectedItem = selectedItem != ''
+                  ? selectedItem ?? ''
+                  : labelText, //Station Facilities Issue Fixed Here
+              textScaler: TextScaleUtil.getScaledText(
+                context,
+              ),
               overflow: TextOverflow.ellipsis,
               style: selectedItem != ''
                   ? Theme.of(context)

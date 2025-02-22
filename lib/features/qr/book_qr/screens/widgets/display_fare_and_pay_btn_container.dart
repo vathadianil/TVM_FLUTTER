@@ -17,7 +17,7 @@ class DisplayFarePayBtnContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bookQrController = BookQrController.instance;
-    
+
     return Obx(
       () => Column(
         children: [
@@ -41,7 +41,8 @@ class DisplayFarePayBtnContainer extends StatelessWidget {
                   const DisplayFare(),
                   //-- Proceed to pay button
                   CustomBtnWithTermsDialog(
-                    btnText: '${TTexts.proccedToPay}  ${TTexts.rupeeSymbol}${_getFinalFare()}/-',
+                    btnText:
+                        '${TTexts.proccedToPay}  ${TTexts.rupeeSymbol}${_getFinalFare()}/-',
                     // btnText: bookQrController.qrFareData.first.finalFare! > bookQrController.maxRedemptionAmount.value
                     //           && bookQrController.loyaltyProgramKey.value == 1
                     //     ? '${TTexts.proccedToPay}  ${TTexts.rupeeSymbol}${_getFinalFare()}/-'
@@ -65,12 +66,13 @@ class DisplayFarePayBtnContainer extends StatelessWidget {
     final bookQrController = BookQrController.instance;
 
     // Get base fare
-    final baseFare = bookQrController.passengerCount.value * bookQrController.qrFareData.first.finalFare!;
+    final baseFare = bookQrController.passengerCount.value *
+        bookQrController.qrFareData.first.finalFare!;
 
     // If points are redeemed, deduct the redeemed amount (e.g., 10)
-    final finalFare = bookQrController.isRedeemed.value 
-                          && bookQrController.loyaltyProgramKey.value == 1
-                          && baseFare >= bookQrController.maxRedemptionAmount.value
+    final finalFare = bookQrController.isRedeemed.value &&
+            bookQrController.loyaltyProgramKey.value == 1 &&
+            baseFare >= bookQrController.maxRedemptionAmount.value
         ? baseFare - bookQrController.maxRedemptionAmount.value
         : baseFare;
 

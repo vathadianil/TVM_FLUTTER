@@ -15,7 +15,7 @@ class DisplayFare extends StatelessWidget {
     return Obx(
       () => Padding(
         padding: const EdgeInsets.only(
-          top: TSizes.defaultSpace,
+          top: TSizes.defaultSpace / 2,
           left: TSizes.defaultSpace,
           right: TSizes.defaultSpace,
         ),
@@ -39,14 +39,16 @@ class DisplayFare extends StatelessWidget {
                     children: [
                       Text(
                         "Ticket Fare",
-                        textScaler: TextScaleUtil.getScaledText(context),
+                        textScaler:
+                            TextScaleUtil.getScaledText(context, maxScale: 1),
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       Row(
                         children: [
                           Text(
                             '${bookQrController.passengerCount.value} X ${bookQrController.qrFareData.first.finalFare.toString()} = ',
-                            textScaler: TextScaleUtil.getScaledText(context),
+                            textScaler: TextScaleUtil.getScaledText(context,
+                                maxScale: 1),
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
                           const SizedBox(
@@ -54,7 +56,8 @@ class DisplayFare extends StatelessWidget {
                           ),
                           Text(
                             '${bookQrController.passengerCount.value * bookQrController.qrFareData.first.finalFare!}/-',
-                            textScaler: TextScaleUtil.getScaledText(context),
+                            textScaler: TextScaleUtil.getScaledText(context,
+                                maxScale: 1),
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
                         ],
@@ -64,15 +67,14 @@ class DisplayFare extends StatelessWidget {
                   Text(
                     '${TTexts.perTicket} ${bookQrController.qrFareData.first.finalFare}/- (${bookQrController.ticketType.value ? TTexts.roundTrip : TTexts.oneWay})',
                     textScaler:
-                        TextScaleUtil.getScaledText(context, maxScale: 2.5),
+                        TextScaleUtil.getScaledText(context, maxScale: 1),
                     style: Theme.of(context).textTheme.labelLarge,
                   ),
 
-                  
                   // Redeem Points Section - Only display if points redeemed.
                   if (bookQrController.isRedeemed.value &&
-                          bookQrController.loyaltyProgramKey.value == 1) ...[      
-                    const SizedBox(height: TSizes.spaceBtwItems), 
+                      bookQrController.loyaltyProgramKey.value == 1) ...[
+                    const SizedBox(height: TSizes.spaceBtwItems),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -96,20 +98,22 @@ class DisplayFare extends StatelessWidget {
                       // bookQrController.qrFareData.first.finalFare! > bookQrController.maxRedemptionAmount.value
                       //     ? 'Points redeemed for this order is ${bookQrController.pointsToRedeem} pts'
                       //     : 'Redemption is not permitted for this fare.',
-                      textScaler: TextScaleUtil.getScaledText(context, maxScale: 2.5),
+                      textScaler:
+                          TextScaleUtil.getScaledText(context, maxScale: 2.5),
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                   ],
 
                   const Divider(),
-                  
+
                   // Final total fare
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         TTexts.totalFare,
-                        textScaler: TextScaleUtil.getScaledText(context),
+                        textScaler:
+                            TextScaleUtil.getScaledText(context, maxScale: 1),
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                       Row(
@@ -120,7 +124,8 @@ class DisplayFare extends StatelessWidget {
                             //             && bookQrController.loyaltyProgramKey.value == 1
                             //     ? '${_getFinalFare()}/-'
                             //     : '${BookQrController.instance.passengerCount.value * BookQrController.instance.qrFareData.first.finalFare!}/-',
-                            textScaler: TextScaleUtil.getScaledText(context),
+                            textScaler: TextScaleUtil.getScaledText(context,
+                                maxScale: 1),
                             style: Theme.of(context).textTheme.headlineSmall,
                           ),
                         ],
@@ -140,12 +145,13 @@ class DisplayFare extends StatelessWidget {
     final bookQrController = BookQrController.instance;
 
     // Get base fare
-    final baseFare = bookQrController.passengerCount.value * bookQrController.qrFareData.first.finalFare!;
+    final baseFare = bookQrController.passengerCount.value *
+        bookQrController.qrFareData.first.finalFare!;
 
     // If points are redeemed, deduct the redeemed amount (e.g., 10)
-    final finalFare = bookQrController.isRedeemed.value 
-                          && bookQrController.loyaltyProgramKey.value == 1 
-                          && baseFare >= bookQrController.maxRedemptionAmount.value
+    final finalFare = bookQrController.isRedeemed.value &&
+            bookQrController.loyaltyProgramKey.value == 1 &&
+            baseFare >= bookQrController.maxRedemptionAmount.value
         ? baseFare - bookQrController.maxRedemptionAmount.value
         : baseFare;
 

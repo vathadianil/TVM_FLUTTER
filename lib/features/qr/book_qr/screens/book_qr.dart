@@ -4,44 +4,42 @@ import 'package:iconsax/iconsax.dart';
 import 'package:tsavaari/common/controllers/checkbox_controller.dart';
 import 'package:tsavaari/common/widgets/appbar/t_appbar.dart';
 import 'package:tsavaari/common/widgets/layout/max_width_container.dart';
-import 'package:tsavaari/features/home/screens/widgets/banner_image_slider.dart';
-import 'package:tsavaari/features/my_orders/controllers/orders_controller.dart';
+// import 'package:tsavaari/features/home/screens/widgets/banner_image_slider.dart';
+// import 'package:tsavaari/features/my_orders/controllers/orders_controller.dart';
 import 'package:tsavaari/features/qr/book_qr/controllers/book_qr_controller.dart';
 import 'package:tsavaari/features/qr/book_qr/controllers/business_hours_controller.dart';
-import 'package:tsavaari/features/qr/book_qr/controllers/station_list_controller.dart';
+// import 'package:tsavaari/features/qr/book_qr/controllers/station_list_controller.dart';
 import 'package:tsavaari/features/qr/book_qr/screens/book_qr_shimmer.dart';
 import 'package:tsavaari/features/qr/book_qr/screens/widgets/display_fare_and_pay_btn_container.dart';
-import 'package:tsavaari/features/qr/book_qr/screens/widgets/display_reedem_points_container.dart';
-import 'package:tsavaari/features/qr/book_qr/screens/widgets/recent_rebook_ticket_card.dart';
+// import 'package:tsavaari/features/qr/book_qr/screens/widgets/display_reedem_points_container.dart';
+// import 'package:tsavaari/features/qr/book_qr/screens/widgets/recent_rebook_ticket_card.dart';
 import 'package:tsavaari/features/qr/book_qr/screens/widgets/source_destination_selection.dart';
 import 'package:tsavaari/features/qr/book_qr/screens/widgets/ticket_count_selection.dart';
 import 'package:tsavaari/features/qr/book_qr/screens/widgets/ticket_preview_after_reedem.dart';
 import 'package:tsavaari/features/qr/book_qr/screens/widgets/ticket_type_selection.dart';
-import 'package:tsavaari/features/reward_points/controllers/reward_points_controller.dart';
-import 'package:tsavaari/utils/constants/banner_page_type.dart';
+// import 'package:tsavaari/features/reward_points/controllers/reward_points_controller.dart';
+// import 'package:tsavaari/utils/constants/banner_page_type.dart';
 import 'package:tsavaari/utils/constants/colors.dart';
-import 'package:tsavaari/utils/constants/image_strings.dart';
+// import 'package:tsavaari/utils/constants/image_strings.dart';
 import 'package:tsavaari/utils/constants/sizes.dart';
 import 'package:tsavaari/utils/constants/text_size.dart';
 import 'package:tsavaari/utils/constants/text_strings.dart';
-import 'package:tsavaari/utils/device/device_utility.dart';
-import '../../../../common/controllers/google_ad_controller.dart';
+// import '../../../../common/controllers/google_ad_controller.dart';
 
 class BookQrScreen extends StatelessWidget {
   const BookQrScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final stationListController = Get.put(StationListController());
+    // final stationListController = Get.put(StationListController());
     final busineessHoursController = Get.put(BusineessHoursController());
     final bookQrController = Get.put(BookQrController());
     Get.put(CheckBoxController());
-    final rewardPointsController = Get.put(RewardPointsController());
-    final ordersController = Get.put(
-        OrdersController(tabIndex: 1)); //--tabIndex= 1 to fetch Past Tickets.
-    final adController = Get.put(GoogleAdController());
+    // final rewardPointsController = Get.put(RewardPointsController());
+    // final ordersController = Get.put(
+    //     OrdersController(tabIndex: 1)); //--tabIndex= 1 to fetch Past Tickets.
+    // final adController = Get.put(GoogleAdController());
 
-    final screenHeight = TDeviceUtils.getScreenHeight();
     return Scaffold(
       appBar: TAppBar(
         showBackArrow: false,
@@ -60,7 +58,7 @@ class BookQrScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        padding: const EdgeInsets.all(TSizes.defaultSpace),
+        // padding: const EdgeInsets.all(TSizes.defaultSpace),
         child: SafeArea(
           child: Center(
             child: MaxWidthContaiiner(
@@ -82,52 +80,48 @@ class BookQrScreen extends StatelessWidget {
                                       color: TColors.grey,
                                     ),
                                   ),
-                                  child: Column(
+                                  child: const Column(
                                     children: [
                                       //-- Ticket type Selection
-                                      const TicketTypeSlection(),
-
-                                      SizedBox(
-                                        height: screenHeight * .015,
-                                      ),
+                                      TicketTypeSlection(),
 
                                       //-- No. of Tickets selection
-                                      const TicketCountSelection(),
-
-                                      SizedBox(
-                                        height: screenHeight * .015,
-                                      ),
+                                      TicketCountSelection(),
 
                                       //-- Source and Destination station selection
-                                      const SourceDestinationSelection(),
+                                      SourceDestinationSelection(),
 
-                                      const SizedBox(
+                                      SizedBox(
                                         height: TSizes.spaceBtwItems,
                                       ),
                                     ],
                                   ),
                                 ),
 
-                          if (adController.isBannerAdReady.value &&
-                              adController.bannerAd != null)
-                            const SizedBox(
-                              height: TSizes.spaceBtwSections,
-                            ),
+                          const SizedBox(
+                            height: TSizes.spaceBtwSections / 2,
+                          ),
 
-                          //-- Display Google Ads Or Banners
-                          BannerImageSlider(
-                              autoPlay: true,
-                              pageType: BannerPageType.qRTicketBooking),
+                          // if (adController.isBannerAdReady.value &&
+                          //     adController.bannerAd != null)
+                          //   const SizedBox(
+                          //     height: TSizes.spaceBtwSections,
+                          //   ),
+
+                          // //-- Display Google Ads Or Banners
+                          // BannerImageSlider(
+                          //     autoPlay: true,
+                          //     pageType: BannerPageType.qRTicketBooking),
 
                           //-- Display Reedem Points Container
-                          if (!busineessHoursController
-                                  .isTicketSelleingTimeExpired.value &&
-                              !busineessHoursController.isLoading.value &&
-                              bookQrController.source !=
-                                  bookQrController.destination &&
-                              rewardPointsController.loyaltyProgramKey.value ==
-                                  1)
-                            const DisplayRedeemPointsContainer(),
+                          // if (!busineessHoursController
+                          //         .isTicketSelleingTimeExpired.value &&
+                          //     !busineessHoursController.isLoading.value &&
+                          //     bookQrController.source !=
+                          //         bookQrController.destination &&
+                          //     rewardPointsController.loyaltyProgramKey.value ==
+                          //         1)
+                          //   const DisplayRedeemPointsContainer(),
 
                           //-- Display Total Fare and Route
                           if (!busineessHoursController
@@ -138,20 +132,20 @@ class BookQrScreen extends StatelessWidget {
                             const DisplayFarePayBtnContainer(),
 
                           //-- Recent Rebook Ticket
-                          bookQrController.isRedeemed.value
-                              ? const SizedBox.shrink()
-                              : RecentRebookTicketCard(
-                                  stationList:
-                                      stationListController.stationList,
-                                  ticketData: ordersController
-                                              .activeTickets.isNotEmpty &&
-                                          ordersController.activeTickets.first
-                                                  .ticketHistory !=
-                                              null
-                                      ? ordersController
-                                          .activeTickets.first.ticketHistory![0]
-                                      : null,
-                                ),
+                          // bookQrController.isRedeemed.value
+                          //     ? const SizedBox.shrink()
+                          //     : RecentRebookTicketCard(
+                          //         stationList:
+                          //             stationListController.stationList,
+                          //         ticketData: ordersController
+                          //                     .activeTickets.isNotEmpty &&
+                          //                 ordersController.activeTickets.first
+                          //                         .ticketHistory !=
+                          //                     null
+                          //             ? ordersController
+                          //                 .activeTickets.first.ticketHistory![0]
+                          //             : null,
+                          //       ),
                         ],
                       ),
               ),
@@ -159,12 +153,12 @@ class BookQrScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const Image(
-        height: 100,
-        image: AssetImage(
-          TImages.trainImg1,
-        ),
-      ),
+      // bottomNavigationBar: const Image(
+      //   height: 100,
+      //   image: AssetImage(
+      //     TImages.trainImg1,
+      //   ),
+      // ),
     );
   }
 }

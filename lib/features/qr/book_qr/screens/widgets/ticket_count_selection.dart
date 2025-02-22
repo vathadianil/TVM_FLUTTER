@@ -33,7 +33,9 @@ class TicketCountSelection extends StatelessWidget {
               width: TSizes.spaceBtwItems / 2,
             ),
             Text(TTexts.passengers,
-                textScaler: TextScaleUtil.getScaledText(context, maxScale: 3),
+                textScaler: TextScaleUtil.getScaledText(
+                  context,
+                ),
                 style: Theme.of(context).textTheme.bodyLarge),
           ],
         ),
@@ -48,18 +50,19 @@ class TicketCountSelection extends StatelessWidget {
                       },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(0),
-                  minimumSize: Size(screenWidth * .08, screenWidth * .08),
                 ),
                 child: Icon(
                   Iconsax.minus,
-                  size: screenWidth * .06,
+                  size: screenWidth * .03,
                 ),
               ),
               SizedBox(
                 width: screenWidth * 0.03,
               ),
               Text(controller.passengerCount.value.toString(),
-                  textScaler: TextScaleUtil.getScaledText(context, maxScale: 3),
+                  textScaler: TextScaleUtil.getScaledText(
+                    context,
+                  ),
                   style: Theme.of(context).textTheme.bodyLarge),
               SizedBox(
                 width: screenWidth * 0.03,
@@ -67,18 +70,19 @@ class TicketCountSelection extends StatelessWidget {
               ElevatedButton(
                 onPressed: controller.passengerCount.value >= 6
                     ? () {
-                        TLoaders.errorSnackBar(title: 'Maximum 6 Only', message: 'Max 6 passengers allowed');
+                        TLoaders.errorSnackBar(
+                            title: 'Maximum 6 Only',
+                            message: 'Max 6 passengers allowed');
                       }
                     : () {
                         controller.passengerCount.value++;
                       },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(0),
-                  minimumSize: Size(screenWidth * .08, screenWidth * .08),
                 ),
                 child: Icon(
                   Iconsax.add,
-                  size: screenWidth * .06,
+                  size: screenWidth * .03,
                 ),
               ),
             ],
