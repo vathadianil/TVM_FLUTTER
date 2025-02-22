@@ -68,20 +68,20 @@ class _HomeScreenState extends State<HomeScreen>
         title: 'Station\nFacilities',
         targetScreen: '/station-facilities',
       ),
-      MetroServicesModel(
-        id: '5',
-        active: true,
-        icon: 'map',
-        title: 'Metro\nMap',
-        targetScreen: '/metro-network-map',
-      ),
-      MetroServicesModel(
-        id: '6',
-        active: true,
-        icon: 'media',
-        title: 'Follow\nUs',
-        targetScreen: '/media',
-      ),
+      // MetroServicesModel(
+      //   id: '5',
+      //   active: true,
+      //   icon: 'map',
+      //   title: 'Metro\nMap',
+      //   targetScreen: '/metro-network-map',
+      // ),
+      // MetroServicesModel(
+      //   id: '6',
+      //   active: true,
+      //   icon: 'media',
+      //   title: 'Follow\nUs',
+      //   targetScreen: '/media',
+      // ),
     ];
 
     List<MetroServicesModel> getActiveServiceList() {

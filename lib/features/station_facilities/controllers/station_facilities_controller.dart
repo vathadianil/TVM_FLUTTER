@@ -7,13 +7,15 @@ import 'package:tsavaari/utils/popups/loaders.dart';
 
 class StationFacilitiesController extends GetxController {
   static StationFacilitiesController get instance => Get.find();
-  
-   //Variables
+
+  //Variables
   final isLoading = true.obs;
-  final isNearestStationLoading = true.obs;
+  final isNearestStationLoading = false.obs;
   final stationFacilitiesRepository = Get.put(StationFacilitiesRepository());
   final RxList<Stnlist> stationList = <Stnlist>[].obs;
   final RxList<Facility> stationFacilities = <Facility>[].obs;
+  final stadiumStationId = 46;
+  final stadiumStationName = 'Stadium';
 
   Rxn<String> stationName = Rxn<String>();
   Rxn<Stnlist> nearestStation = Rxn<Stnlist>();
@@ -22,18 +24,19 @@ class StationFacilitiesController extends GetxController {
   void onInit() {
     super.onInit();
     _getStationListWithCoords();
-    _findNearestStation();
-    getMetroStationFacilitiesServices(null); // Initialize with no specific station
+    // _findNearestStation();
+    getMetroStationFacilitiesServices(
+        stadiumStationId); // Initialize with no specific station
+    stationName.value = stadiumStationName;
   }
 
-
-  Future<void> getMetroStationFacilitiesServices(int? stnId)  async {
+  Future<void> getMetroStationFacilitiesServices(int? stnId) async {
     if (stnId == null) return; // Ensure stnId is not null before proceeding
     try {
       isLoading.value = true;
-      final stationsServicesData = 
-          await stationFacilitiesRepository.fetchMetroStationFacilitiesServices(stnId: stnId);
-      
+      final stationsServicesData = await stationFacilitiesRepository
+          .fetchMetroStationFacilitiesServices(stnId: stnId);
+
       stationFacilities.value = stationsServicesData.r.facilities;
       isLoading.value = false;
     } catch (e) {
@@ -43,14 +46,13 @@ class StationFacilitiesController extends GetxController {
       isLoading.value = false;
     }
   }
-  
-  
 
-  Future<void> _getStationListWithCoords()  async {
+  Future<void> _getStationListWithCoords() async {
     try {
       isLoading.value = true;
-      final stationsData = await stationFacilitiesRepository.fetchStationsWithCoordsList();
-      
+      final stationsData =
+          await stationFacilitiesRepository.fetchStationsWithCoordsList();
+
       stationList.value = stationsData.stnlist!;
       isLoading.value = false;
     } catch (e) {
@@ -69,7 +71,6 @@ class StationFacilitiesController extends GetxController {
     double shortestDistance = double.infinity;
     Stnlist? closestStation;
 
-
     for (var station in stationList) {
       double distance = Geolocator.distanceBetween(
         userLocation.latitude,
@@ -87,8 +88,8 @@ class StationFacilitiesController extends GetxController {
     if (closestStation != null) {
       stationName.value = closestStation.station;
       nearestStation.value = closestStation;
-      print(nearestStation.value!.station);
-      getMetroStationFacilitiesServices(closestStation.stnId); // Load facilities for nearest station
+      getMetroStationFacilitiesServices(
+          closestStation.stnId); // Load facilities for nearest station
     }
     isNearestStationLoading.value = false;
   }
@@ -103,8 +104,8 @@ class StationFacilitiesController extends GetxController {
       // Location services are not enabled, so you may want to prompt the user to enable them
       return null;
     }
-    
-     // Check for permissions
+
+    // Check for permissions
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
@@ -122,5 +123,4 @@ class StationFacilitiesController extends GetxController {
     // When permission is granted, get the position
     return await Geolocator.getCurrentPosition();
   }
-
 }

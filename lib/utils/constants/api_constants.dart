@@ -40,7 +40,7 @@ class ApiEndPoint {
   static String refundPaymentIntimation = 'qr/RefundInitiatedByMerchant';
   static String getFareCalculation = 'db/fare_calculator?fromStation=';
   static String cashfreeWebhookUrl =
-      'https://www.stage.tsavaari.com/cfpg/cashfree/webhook';
+      'https://www.appuat.tsavaari.com/cfpg/cashfree/webhook';
 
   ///Travel History
   static String getActiveTickets = 'qr/getActiveTickets';

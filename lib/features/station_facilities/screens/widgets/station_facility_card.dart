@@ -35,7 +35,8 @@ class StationFacilityCard extends StatelessWidget {
                   color: isDark ? TColors.darkGrey : TColors.grey,
                   blurRadius: TSizes.md)
             ]),
-        padding: EdgeInsets.all(SizeConfig.blockSizeHorizontal * 3),
+        padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.blockSizeHorizontal * 3),
         child: ListTile(
           leading: CircleAvatar(
             backgroundColor: TColors.white,
@@ -58,39 +59,6 @@ class StationFacilityCard extends StatelessWidget {
             style: Theme.of(context).textTheme.labelLarge,
           ),
         ),
-        // Row(
-        //   children: [
-        //     Image.network(
-        //       icon,
-        //       height: SizeConfig.blockSizeHorizontal * 9,
-        //     ),
-        //     SizedBox(width: SizeConfig.blockSizeHorizontal * 5),
-        //     Expanded(
-        //       child: Column(
-        //         mainAxisAlignment: MainAxisAlignment.center,
-        //         crossAxisAlignment: CrossAxisAlignment.start,
-        //         children: [
-        //           Text(
-        //             label,
-        //             textAlign: TextAlign.center,
-        //             style: AppTextStyle.commonTextStyle14()
-        //                 .copyWith(color: AppColors.blackColor),
-        //           ),
-        //           SizedBox(height: SizeConfig.blockSizeVertical * 1),
-        //           Text(
-        //             content,
-        //             textAlign: TextAlign
-        //                 .start, // Align to start for better readability
-        //             maxLines: null, // Allow unlimited lines for wrapping
-        //             overflow: TextOverflow.visible, // Avoid truncation
-        //             style: AppTextStyle.commonTextStyle1()
-        //                 .copyWith(color: AppColors.greyColor),
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }

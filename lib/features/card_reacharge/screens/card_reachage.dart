@@ -4,7 +4,6 @@ import 'package:tsavaari/common/controllers/button_tabbar_controller.dart';
 import 'package:tsavaari/common/widgets/appbar/button_tabbar.dart';
 import 'package:tsavaari/common/widgets/appbar/t_appbar.dart';
 import 'package:tsavaari/features/card_reacharge/controllers/metro_card_controller.dart';
-import 'package:tsavaari/features/card_reacharge/screens/widgets/add_card.dart';
 import 'package:tsavaari/features/card_reacharge/screens/widgets/card_history_shimmer.dart';
 import 'package:tsavaari/features/card_reacharge/screens/widgets/card_layout.dart';
 import 'package:tsavaari/features/card_reacharge/screens/widgets/card_layout_shimmer.dart';
@@ -15,7 +14,7 @@ import 'package:tsavaari/utils/constants/banner_page_type.dart';
 import 'package:tsavaari/utils/constants/colors.dart';
 import 'package:tsavaari/utils/constants/sizes.dart';
 import 'package:tsavaari/utils/device/device_utility.dart';
-import 'package:tsavaari/features/card_reacharge/screens/widgets/add_or_edit_card_details.popup.dart';
+// import 'package:tsavaari/features/card_reacharge/screens/widgets/add_or_edit_card_details.popup.dart';
 
 class CardReachargeScreen extends StatelessWidget {
   const CardReachargeScreen({super.key});
@@ -37,20 +36,6 @@ class CardReachargeScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: TColors.white,
                 )),
-        actions: [
-          AddCard(
-            onPressed: () {
-              cardController.cardHolderName.text = '';
-              cardController.cardNumber.text = '';
-              Get.dialog(
-                barrierDismissible: false,
-                const AddOrEditCardDetailsPopup(
-                  type: 'add',
-                ),
-              );
-            },
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,

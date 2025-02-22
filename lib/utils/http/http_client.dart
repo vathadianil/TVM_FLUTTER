@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class THttpHelper {
   static const String _baseUrlOld = 'https://nebulacard.ltmetro.com';
-  static const String _baseUrl = 'https://stage.tsavaari.com';
+  static const String _baseUrl = 'https://appuat.tsavaari.com';
 
   // Helper method to make a GET request
   static Future<Map<String, dynamic>> get(String endpoint,

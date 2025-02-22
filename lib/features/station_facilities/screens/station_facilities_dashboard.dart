@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tsavaari/features/home/screens/widgets/header_section_container.dart';
+import 'package:tsavaari/common/widgets/layout/t_grid_layout.dart';
+// import 'package:tsavaari/features/home/screens/widgets/header_section_container.dart';
 import 'package:tsavaari/features/station_facilities/controllers/station_facilities_controller.dart';
 import 'package:tsavaari/features/station_facilities/models/station_facilities_services_model.dart';
 import 'package:tsavaari/features/station_facilities/screens/widgets/floating_action_btn.dart';
@@ -9,18 +10,20 @@ import 'package:tsavaari/features/station_facilities/screens/widgets/near_by_fac
 import 'package:tsavaari/features/station_facilities/screens/widgets/station_facility_card.dart';
 import 'package:tsavaari/features/station_facilities/screens/widgets/station_selection.dart';
 import 'package:tsavaari/routes/routes.dart';
-import 'package:tsavaari/utils/constants/image_strings.dart';
+// import 'package:tsavaari/utils/constants/image_strings.dart';
 import 'package:tsavaari/utils/constants/size_config.dart';
+import 'package:tsavaari/utils/constants/sizes.dart';
+import 'package:tsavaari/utils/device/device_utility.dart';
 import 'package:tsavaari/utils/popups/loaders.dart';
 
 class StationFacilitiesScreen extends GetView<StationFacilitiesController> {
-  final StationFacilitiesController controller = Get.put(StationFacilitiesController());
-  
-  StationFacilitiesScreen({super.key});
+  const StationFacilitiesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
+    // final StationFacilitiesController _controller =
+    //     Get.put(StationFacilitiesController());
 
     return Scaffold(
       body: _buildUI(context),
@@ -32,11 +35,12 @@ class StationFacilitiesScreen extends GetView<StationFacilitiesController> {
   Widget _buildUI(BuildContext context) {
     return Column(
       children: [
-        const HeaderSectionContainer(
-          child: Image(
-            image: AssetImage(TImages.stationFaciliteisHeroImg),
-          ),
-        ),
+        // const HeaderSectionContainer(
+        //   child: Image(
+
+        //     image: AssetImage(TImages.stationFaciliteisHeroImg),
+        //   ),
+        // ),
         Obx(() {
           if (controller.isNearestStationLoading.value) {
             return const StationLoader();
@@ -98,12 +102,12 @@ class StationFacilitiesScreen extends GetView<StationFacilitiesController> {
       child: ListView.separated(
         padding: EdgeInsets.symmetric(
           horizontal: SizeConfig.blockSizeHorizontal * 5,
-          vertical: SizeConfig.blockSizeHorizontal * 2,
+          vertical: SizeConfig.blockSizeHorizontal * .5,
         ),
         scrollDirection: Axis.horizontal,
         itemCount: facilities.length,
         separatorBuilder: (_, __) =>
-            SizedBox(width: SizeConfig.blockSizeHorizontal * 4),
+            SizedBox(width: SizeConfig.blockSizeHorizontal * 7),
         itemBuilder: (context, index) {
           Facility facility = facilities[index];
           return NearByFacilityCard(
@@ -140,25 +144,28 @@ class StationFacilitiesScreen extends GetView<StationFacilitiesController> {
 }
 
 Widget _buildVerticalList(List<Facility> facilities, BuildContext context) {
-  return ListView.separated(
-    itemCount: facilities.length,
-    padding: EdgeInsets.symmetric(
-      horizontal: SizeConfig.blockSizeHorizontal * 5,
-      vertical: SizeConfig.blockSizeHorizontal * 2,
+  final screenHeight = TDeviceUtils.getScreenHeight();
+
+  return Padding(
+    padding:
+        EdgeInsets.symmetric(horizontal: SizeConfig.blockSizeHorizontal * 4),
+    child: GridLayout(
+      itemCount: facilities.length,
+      mainAxisExtent: screenHeight * .13,
+      crossAxisCount: 3,
+      mainAxisSpacing: TSizes.gridViewSpacing,
+      itemBuilder: (BuildContext context, int index) {
+        Facility facility = facilities[index];
+        return StationFacilityCard(
+          icon: facility.facilityIconPath!,
+          label: facility.facilityName!,
+          content: facility.facilityContent!,
+          // onTap: () {
+          //   StationFacilitiesDialog.showCustomDialog(context, facility);
+          // },
+        );
+      },
     ),
-    separatorBuilder: (_, __) =>
-        SizedBox(height: SizeConfig.blockSizeVertical * 2),
-    itemBuilder: (context, index) {
-      Facility facility = facilities[index];
-      return StationFacilityCard(
-        icon: facility.facilityIconPath!,
-        label: facility.facilityName!,
-        content: facility.facilityContent!,
-        // onTap: () {
-        //   StationFacilitiesDialog.showCustomDialog(context, facility);
-        // },
-      );
-    },
   );
 }
 
